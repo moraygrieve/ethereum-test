@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="yes"?>
+<pysysproject>
+    <requires-pysys>1.6</requires-pysys>
+    <requires-python>3.8</requires-python>
+
+    <property root="testRootDir"/>
+    <property environment="env"/>
+    <property osfamily="osfamily"/>
+
+    <property name="ganacheBin" value="/usr/local/bin/ganache-cli"/>
+
+    <property name="defaultAbortOnError" value="true"/>
+    <property name="defaultIgnoreExitStatus" value="false"/>
+    <property name="defaultEnvironsTempDir" value="self.output"/>
+    <property name="redirectPrintToLogger" value="false"/>
+    <property name="supportMultipleModesPerRun" value="true"/>
+
+    <path value="./src/python" relative="true" />
+
+    <writers>
+        <writer classname="ConsoleSummaryResultsWriter" module="pysys.writer">
+            <property name="showOutputDir" value="false"/>
+            <property name="showOutcomeReason" value="true"/>
+        </writer>
+        <writer classname="ethsys.writer.gitlab.GitLabTestsWriter">
+            <property name="outputDir" value="test-results"/>
+        </writer>
+    </writers>
+
+    <default-file-encodings>
+        <default-file-encoding pattern="run.log" encoding="utf-8"/>
+        <default-file-encoding pattern="*.xml"  encoding="utf-8"/>
+        <default-file-encoding pattern="*.json" encoding="utf-8"/>
+        <default-file-encoding pattern="*.yaml" encoding="utf-8"/>
+    </default-file-encodings>
+
+    <formatters>
+        <formatter classname="ColorLogFormatter" module="pysys.utils.logutils"
+                   name="stdout" messagefmt="%(asctime)s %(levelname)-5s %(message)s" datefmt="%H:%M:%S">
+        </formatter>
+
+        <formatter classname="BaseLogFormatter" module="pysys.utils.logutils"
+                   name="runlog" messagefmt="%(asctime)s %(levelname)-5s %(message)s" datefmt=""/>
+    </formatters>
+
+</pysysproject>
