@@ -6,9 +6,24 @@ PySys test repo for building and running solidity smart contracts on Ethereum
 
 Initial notes (WIP) 
 -------------------
-npm install -g solc@0.4.19
 
-to build the contract
+#python dependencies
+python3 -m pip install web3
+python3 -m pip install pysys=1.6.1
+python3 -m pip install py-solc-x
+
+#install solc (which differs from solcjs and is used by python solcx)
+brew tap ethereum/ethereum
+brew install solidity
+
+#install homebrew and node.js
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew update
+brew upgrade
+brew install node
+
+#install solcjs
+npm install -g solc@0.8.15
 $ solcjs --bin -o output contracts/Faucet.sol
 
 start a local private blockchain

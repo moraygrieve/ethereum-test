@@ -1,9 +1,10 @@
-pragma solidity 0.4.19;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.15;
 
 contract Greeter {
     string public greeting;
 
-    function Greeter() public {
+    constructor() {
         greeting = "Hello World";
     }
 

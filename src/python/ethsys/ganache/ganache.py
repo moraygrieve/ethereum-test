@@ -1,4 +1,6 @@
+import os
 from pysys.constants import *
+
 
 class GanacheHelper:
 
@@ -10,7 +12,8 @@ class GanacheHelper:
         arguments = []
         if port is not None: arguments.extend(('--port', str(port)))
         hprocess = test.startProcess(command=PROJECT.ganacheBin, displayName='ganache', workingDir=test.output,
-                                 arguments=arguments, stdout=stdout, stderr=stderr, state=BACKGROUND)
+                                     environs=os.environ,
+                                     arguments=arguments, stdout=stdout, stderr=stderr, state=BACKGROUND)
 
-        test.waitForSignal(stdout, expr='Listening on 127.0.0.1:%d'%port, timeout=120)
+        test.waitForSignal(stdout, expr='Listening on 127.0.0.1:%d' % port, timeout=10)
         return hprocess

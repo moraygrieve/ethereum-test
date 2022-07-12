@@ -7,7 +7,7 @@
     <property environment="env"/>
     <property osfamily="osfamily"/>
 
-    <property name="ganacheBin" value="/usr/local/bin/ganache-cli"/>
+    <property name="ganacheBin" value="/opt/homebrew/bin/ganache-cli"/>
 
     <property name="defaultAbortOnError" value="true"/>
     <property name="defaultIgnoreExitStatus" value="false"/>
