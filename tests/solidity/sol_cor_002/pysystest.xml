@@ -2,7 +2,7 @@
 <pysystest type="auto">
   
   <description> 
-	<title>Greeter application to return a specific greeting</title>
+	<title>Guessing game application to guess a hard coded value</title>
 	<purpose><![CDATA[
 ]]>
 	</purpose>
