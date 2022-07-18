@@ -15,6 +15,7 @@ class PySysTest(BaseTest):
 
 		# create guesser abstraction, compile and deploy
 		guesser = Guesser(self, 0, 100)
+
 		bytecode, abi = guesser.compile()
 		contract = w3.eth.contract(abi=abi, bytecode=bytecode)
 		transaction = contract.constructor(guesser.secret).transact()
