@@ -1,21 +1,37 @@
-import os, random
 from web3 import Web3
 from pysys.basetest import BaseTest
-from ethsys.ganache.ganache import GanacheHelper
-from ethsys.solidity.compile import SolidityCompiler
+from ethsys.utils.properties import Properties
+from ethsys.contracts.guesser import Guesser
 
 class PySysTest(BaseTest):
-	def execute(self):
-		port=self.getNextAvailableTCPPort()
-		GanacheHelper.run(self, port=port)
+    def execute(self):
+        props = Properties()
 
-		# compile the solidity contract
-		bytecode, abi = SolidityCompiler.compileFile(os.path.join(self.input, 'Incrementer.sol'))
+        # connect to the network and get the account
+        w3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/%s' % props.infuraProjectID()))
+        account = w3.eth.account.privateKeyToAccount(props.ropstenPrivateKey())
 
-		# construct the web3.py instance
-		w3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/266273d6b9a544f3ad56c725f38dfd56'))
+        # create guesser abstraction, compile and deploy
+        guesser = Guesser(self, 0, 100)
+        bytecode, abi = guesser.compile()
+        contract = w3.eth.contract(abi=abi, bytecode=bytecode)
+        build_tx = contract.constructor(guesser.secret).buildTransaction(
+            {
+                'from': account.address,
+                'nonce': w3.eth.getTransactionCount(account.address),
+                'gasPrice': w3.eth.gasPrice,
+                'chainId': 3
+            }
+        )
+        signed_tx = account.signTransaction(build_tx)
+        tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
+        # wait for the transaction receipt
+        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+        contract = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
 
-	def validate(self):
-		pass
-	
+        # make the guess until we get the right number
+        guesser.guess(contract)
+
+    def validate(self):
+        pass
