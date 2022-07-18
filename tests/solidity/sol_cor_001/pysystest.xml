@@ -2,8 +2,9 @@
 <pysystest type="auto">
   
   <description> 
-	<title>Greeter application to return a specific greeting</title>
+	<title>Guessing game application - run on ganache</title>
 	<purpose><![CDATA[
+A simple smart contract which hard codes a value which it is necessary to guess
 ]]>
 	</purpose>
   </description>

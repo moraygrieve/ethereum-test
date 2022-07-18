@@ -1,32 +1,38 @@
 from web3 import Web3
 from pysys.basetest import BaseTest
-from ethsys.ganache.ganache import GanacheHelper
+from ethsys.utils.properties import Properties
 from ethsys.contracts.guesser import Guesser
 
 class PySysTest(BaseTest):
-	def execute(self):
-		# run ganache
-		port = self.getNextAvailableTCPPort()
-		GanacheHelper.run(self, port=port)
+    def execute(self):
+        props = Properties()
 
-		# connect to the network and get the account
-		w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:%d'%port))
-		w3.eth.default_account = w3.eth.accounts[0]
+        # connect to the network and get the account
+        w3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/%s' % props.infuraProjectID()))
+        account = w3.eth.account.privateKeyToAccount(props.ropstenPrivateKey())
 
-		# create guesser abstraction, compile and deploy
-		guesser = Guesser(self, 0, 100)
+        # create guesser abstraction, compile and deploy
+        guesser = Guesser(self, 0, 100)
 
-		bytecode, abi = guesser.compile()
-		contract = w3.eth.contract(abi=abi, bytecode=bytecode)
-		transaction = contract.constructor(guesser.secret).transact()
+        bytecode, abi = guesser.compile()
+        contract = w3.eth.contract(abi=abi, bytecode=bytecode)
+        build_tx = contract.constructor(guesser.secret).buildTransaction(
+            {
+                'from': account.address,
+                'nonce': w3.eth.getTransactionCount(account.address),
+                'gasPrice': w3.eth.gasPrice,
+                'chainId': 3
+            }
+        )
+        signed_tx = account.signTransaction(build_tx)
+        tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
-		# wait for the transaction receipt then get the actual contract from the blockchain
-		tx_receipt = w3.eth.wait_for_transaction_receipt(transaction)
-		contract = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+        # wait for the transaction receipt
+        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+        contract = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
 
-		# make the guess until we get the right number
-		guesser.guess(contract)
+        # make the guess until we get the right number
+        guesser.guess(contract)
 
-	def validate(self):
-		pass
-	
+    def validate(self):
+        pass
