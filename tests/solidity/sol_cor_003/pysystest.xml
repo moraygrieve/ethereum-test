@@ -2,13 +2,16 @@
 <pysystest type="auto">
   
   <description> 
-	<title>Guessing game application to guess a hard coded value</title>
+	<title></title>    
 	<purpose><![CDATA[
-A simple smart contract which hard codes a value which it is neccessary to guess
 ]]>
 	</purpose>
   </description>
 
+  <!-- uncomment this to skip the test:  
+  <skipped reason=""/> 
+  -->
+  
   <classification>
 	<groups inherit="true">
 	  <group></group>

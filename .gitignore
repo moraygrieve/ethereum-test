@@ -5,3 +5,6 @@ __pycache__/
 
 # pysys related
 **/Output/*
+
+# property files we dont want commited to SCCS
+*.properties

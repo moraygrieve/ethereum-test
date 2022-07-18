@@ -18,7 +18,7 @@ class PySysTest(BaseTest):
 		# set pre-funded account as sender
 		w3.eth.default_account = w3.eth.accounts[0]
 
-		# create the contract and subit the transaction that deploys it
+		# create the contract and submit the transaction that deploys it
 		guesser = w3.eth.contract(abi=abi, bytecode=bytecode)
 		tx_hash = guesser.constructor().transact()
 
