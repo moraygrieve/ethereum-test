@@ -3,6 +3,7 @@ from pysys.basetest import BaseTest
 from ethsys.ganache.ganache import GanacheHelper
 from ethsys.contracts.guesser import Guesser
 
+
 class PySysTest(BaseTest):
 	def execute(self):
 		# run ganache
@@ -10,7 +11,7 @@ class PySysTest(BaseTest):
 		GanacheHelper.run(self, port=port)
 
 		# connect to the network and get the account
-		w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:%d'%port))
+		w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:%d' % port))
 		w3.eth.default_account = w3.eth.accounts[0]
 
 		# create guesser abstraction, compile and deploy

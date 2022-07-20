@@ -3,6 +3,7 @@ from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
 from ethsys.contracts.guesser import Guesser
 
+
 class PySysTest(BaseTest):
     def execute(self):
         props = Properties()

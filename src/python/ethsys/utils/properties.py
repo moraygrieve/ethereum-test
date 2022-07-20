@@ -8,12 +8,8 @@ class Properties():
         self.config = configparser.ConfigParser()
         if os.path.exists(file): self.config.read(filenames=file)
 
-    def ropstenAccount(self):
-        infura = self.config['ropsten']
-        return infura.get('Account', '')
-
-    def ropstenPrivateKey(self):
-        infura = self.config['ropsten']
+    def privateKey(self):
+        infura = self.config['keys']
         return infura.get('PrivateKey', '')
 
     def infuraProjectID(self):
