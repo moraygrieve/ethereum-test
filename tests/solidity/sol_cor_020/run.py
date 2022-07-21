@@ -15,6 +15,7 @@ class PySysTest(BaseTest):
         # create guesser abstraction, compile and deploy
         guesser = Guesser(self, 0, 100)
 
+        self.log.info('Compiling the guessing game application')
         bytecode, abi = guesser.compile()
         contract = w3.eth.contract(abi=abi, bytecode=bytecode)
         build_tx = contract.constructor(guesser.secret).buildTransaction(
@@ -25,14 +26,18 @@ class PySysTest(BaseTest):
                 'chainId': 3
             }
         )
+
+        self.log.info('Signing and sending raw transaction')
         signed_tx = account.signTransaction(build_tx)
         tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
         # wait for the transaction receipt
+        self.log.info('Waiting for transaction receipt')
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         contract = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
 
         # make the guess until we get the right number
+        self.log.info('Starting guessing game')
         guesser.guess(contract)
 
     def validate(self):
