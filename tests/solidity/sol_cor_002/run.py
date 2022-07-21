@@ -10,7 +10,7 @@ class PySysTest(BaseTest):
 
         # connect to the network and get the account
         w3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/%s' % props.infuraProjectID()))
-        account = w3.eth.account.privateKeyToAccount(props.ropstenPrivateKey())
+        account = w3.eth.account.privateKeyToAccount(props.privateKey())
 
         # create guesser abstraction, compile and deploy
         guesser = Guesser(self, 0, 100)

@@ -2,7 +2,7 @@
 <pysystest type="auto">
 
     <description>
-        <title>Ropsten - valid RPC calls against the network</title>
+        <title>Obscuro - valid RPC calls against the network</title>
         <purpose><![CDATA[
 ]]>
         </purpose>
