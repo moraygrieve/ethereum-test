@@ -2,6 +2,7 @@ import random
 from pysys.constants import *
 from ethsys.solidity.compile import SolidityCompiler
 
+
 class Guesser:
 
     def __init__(self, test,  lower=0, upper=100,):
@@ -27,17 +28,17 @@ class Guesser:
             if nguess > max_guesses:
                 self.test .log.warn("Exceeded guess count ... exiting")
                 self.test .addOutcome(FAILED)
-                break
+                return None
 
             guess = random.randrange(lower, upper)
-            value = contract.functions.guess(guess).call()
-            if value == 1:
-                self.test .log.info("Guess is %d, need to go higher" % guess)
+            ret = contract.functions.guess(guess).call()
+            if ret == 1:
+                self.test.log.info("Guess is %d, need to go higher" % guess)
                 lower = guess+1
-            elif value == -1:
-                self.test .log.info("Guess is %d, need to go lower" % guess)
+            elif ret == -1:
+                self.test.log.info("Guess is %d, need to go lower" % guess)
                 upper = guess
             else:
-                self.test .log.info("You've guessed the secret %s" % guess)
-                self.test .addOutcome(PASSED)
-                break
+                self.test.log.info("You've guessed the secret %s" % guess)
+                self.test.addOutcome(PASSED)
+                return guess
