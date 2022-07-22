@@ -1,4 +1,4 @@
-import requests, json, secrets, time
+import requests, json, secrets
 from web3 import Web3
 from pysys.basetest import BaseTest
 from eth_account.messages import encode_defunct
@@ -53,4 +53,3 @@ class PySysTest(BaseTest):
         gas_price = w3.eth.gas_price
         self.log.info('Gas price is %s' % gas_price)
         self.assertTrue(gas_price == 0)
-
