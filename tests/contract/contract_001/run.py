@@ -1,6 +1,6 @@
 from web3 import Web3
 from pysys.basetest import BaseTest
-from ethsys.ganache.ganache import GanacheHelper
+from ethsys.networks.ganache.ganache import GanacheHelper
 from ethsys.contracts.guesser import Guesser
 
 
