@@ -2,9 +2,10 @@
 <pysystest type="auto">
 
     <description>
-        <title>Ganache - guessing game application</title>
+        <title>Guesser - deploy contract and guess the value</title>
         <purpose><![CDATA[
-A simple smart contract which hard codes a value which it is necessary to guess
+A simple smart contract which hard codes a value which it is necessary to guess. Test is setup to run
+against Obscuro, Ropsten or Ganache.
 ]]>
         </purpose>
     </description>
@@ -14,6 +15,9 @@ A simple smart contract which hard codes a value which it is necessary to guess
             <group></group>
         </groups>
         <modes inherit="true">
+            <mode>obscuro</mode>
+            <mode>ropsten</mode>
+            <mode>ganache</mode>
         </modes>
     </classification>
 

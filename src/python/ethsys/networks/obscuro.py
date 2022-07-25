@@ -7,12 +7,8 @@ from pysys.constants import *
 class ObscuroNetwork:
 
     @classmethod
-    def chain_id(cls):
-        return 777
-
-    @classmethod
-    def run(cls):
-        raise NotImplementedError
+    def run(cls, test):
+        return None, 3000
 
     @classmethod
     def connect(cls, test, host='127.0.0.1', port=3000):
@@ -28,29 +24,30 @@ class ObscuroNetwork:
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
         requests.post('http://%s:%d/submitviewingkey/' % (host, port), data=json.dumps(data), headers=headers)
 
-        return web3, private_key, account
+        return web3, account
 
     @classmethod
     def build_transaction(cls, test, web3, contract, account):
-        return contract.build_transaction(
+        build_tx = contract.buildTransaction(
             {
-                'from': account.address,
-                'nonce': web3.eth.getTransactionCount(account.address),
+                'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': 1499934385,
                 'gas': 720000,
-                'chainId': cls.chain_id()
+                'chainId': 777
             }
         )
+        signed_tx = account.sign_transaction(build_tx)
+        return signed_tx
 
     @classmethod
-    def send_raw_transaction(cls, test, web3, account, build_tx):
-        signed_tx = account.signTransaction(build_tx)
+    def send_transaction(cls, test, web3, contract, account, signed_tx):
         tx_hash = None
         try:
             tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
         except Exception as e:
             test.log.error('Error sending raw transaction %s' % e)
             test.addOutcome(BLOCKED, abortOnError=TRUE)
+        test.log.info('Transaction sent with hash %s' % tx_hash.hex())
         return tx_hash
 
     @classmethod
@@ -73,4 +70,5 @@ class ObscuroNetwork:
             except Exception as e:
                 test.log.warn('Error waiting for transaction receipt %s' % e)
                 time.sleep(1)
+        test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
         return tx_receipt

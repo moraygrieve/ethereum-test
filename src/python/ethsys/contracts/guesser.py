@@ -33,7 +33,12 @@ class Guesser:
         self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor(self.secret)
 
     def guess(self, contract, max_guesses=100):
-        """Perform a guessing game to get the secret number. """
+        """Perform a guessing game to get the secret number.
+
+        :param contract:
+        :param max_guesses:
+        :return:
+        """
         lower = self.lower
         upper = self.upper
         nguess = 0

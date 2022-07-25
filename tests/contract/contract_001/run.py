@@ -1,33 +1,35 @@
-from web3 import Web3
 from pysys.basetest import BaseTest
-from ethsys.networks.ganache import GanacheHelper
 from ethsys.contracts.guesser import Guesser
+from ethsys.networks.factory import NetworkFactory
 
 
 class PySysTest(BaseTest):
-	def execute(self):
-		# run ganache
-		port = self.getNextAvailableTCPPort()
-		GanacheHelper.run(self, port=port)
 
-		# connect to the network and get the account
-		w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:%d' % port))
-		w3.eth.default_account = w3.eth.accounts[0]
+    def execute(self):
+        network = NetworkFactory.get_network(self)
+        process, port = network.run(self)
 
-		# create guesser abstraction, compile and deploy
-		guesser = Guesser(self, 0, 100)
+        # connect to the network, create a local private key and convert into the account
+        web3, account = network.connect(self, port=port)
+        self.log.info('Using account with address %s' % account.address)
 
-		bytecode, abi = guesser.compile()
-		contract = w3.eth.contract(abi=abi, bytecode=bytecode)
-		transaction = contract.constructor(guesser.secret).transact()
+        # compile the guessing game and build the deployment transaction
+        self.log.info('Compiling the guessing game application')
+        guesser = Guesser(self, web3, 0, 100)
+        signed_tx = network.build_transaction(self, web3, guesser.contract, account)
 
-		# wait for the transaction receipt then get the actual contract from the blockchain
-		tx_receipt = w3.eth.wait_for_transaction_receipt(transaction)
-		contract = w3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+        # Sign the transaction and send to the network
+        self.log.info('Signing and sending raw transaction')
+        tx_hash = network.send_transaction(self, web3, guesser.contract, account, signed_tx)
 
-		# make the guess until we get the right number
-		guesser.guess(contract)
+        # wait for the transaction receipt and check the status
+        self.log.info('Waiting for the send transaction')
+        tx_receipt = network.wait_for_transaction(self, web3, tx_hash)
 
-	def validate(self):
-		pass
-	
+        # construct the contract using the contract address
+        self.log.info('Construct an instance using the contract address and abi')
+        contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=guesser.abi)
+
+        # guess the number
+        self.log.info('Starting guessing game')
+        self.assertTrue(guesser.guess(contract) == guesser.secret)
