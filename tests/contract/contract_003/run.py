@@ -58,7 +58,7 @@ class PySysTest(BaseTest):
         start = time.time()
         tx_receipt = None
         while True:
-            if (time.time() - start) > 30:
+            if (time.time() - start) > 60:
                 self.log.error('Timed out waiting for transaction receipt ... aborting')
                 self.addOutcome(TIMEDOUT, abortOnError=TRUE)
 
