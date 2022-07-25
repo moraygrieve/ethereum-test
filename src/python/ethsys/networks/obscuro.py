@@ -3,10 +3,11 @@ from web3 import Web3
 from eth_account.messages import encode_defunct
 from pysys.constants import *
 
+
 class ObscuroNetwork:
 
     @classmethod
-    def chainID(cls):
+    def chain_id(cls):
         return 777
 
     @classmethod
@@ -15,45 +16,45 @@ class ObscuroNetwork:
 
     @classmethod
     def connect(cls, test, host='127.0.0.1', port=3000):
-        w3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
         private_key = secrets.token_hex(32)
-        account = w3.eth.account.privateKeyToAccount(private_key)
+        account = web3.eth.account.privateKeyToAccount(private_key)
 
         # generate a viewing key for this account, sign and post it to the wallet extension
         response = requests.get('http://%s:%d/generateviewingkey/' % (host, port))
-        signed_msg = w3.eth.account.sign_message(encode_defunct(text='vk' + response.text), private_key=private_key)
+        signed_msg = web3.eth.account.sign_message(encode_defunct(text='vk' + response.text), private_key=private_key)
 
         data = {"address": account.address, "signature": signed_msg.signature.hex()}
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
         requests.post('http://%s:%d/submitviewingkey/' % (host, port), data=json.dumps(data), headers=headers)
 
-        return (w3, private_key, account)
+        return web3, private_key, account
 
     @classmethod
-    def buildTransaction(cls, test, web3, contract, account):
-        return contract.buildTransaction(
+    def build_transaction(cls, test, web3, contract, account):
+        return contract.build_transaction(
             {
                 'from': account.address,
                 'nonce': web3.eth.getTransactionCount(account.address),
                 'gasPrice': 1499934385,
                 'gas': 720000,
-                'chainId': cls.chainID()
+                'chainId': cls.chain_id()
             }
         )
 
     @classmethod
-    def sendRawTransaction(cls, test, web3, account, build_tx):
+    def send_raw_transaction(cls, test, web3, account, build_tx):
         signed_tx = account.signTransaction(build_tx)
         tx_hash = None
         try:
-            tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
+            tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
         except Exception as e:
             test.log.error('Error sending raw transaction %s' % e)
             test.addOutcome(BLOCKED, abortOnError=TRUE)
         return tx_hash
 
     @classmethod
-    def waitForTransaction(cls, test, web3, tx_hash):
+    def wait_for_transaction(cls, test, web3, tx_hash):
         start = time.time()
         tx_receipt = None
         while True:

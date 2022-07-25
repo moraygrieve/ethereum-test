@@ -15,15 +15,15 @@ class PySysTest(BaseTest):
         # compile the guessing game and build the deployment transaction
         self.log.info('Compiling the guessing game application')
         guesser = Guesser(self, web3, 0, 100)
-        build_tx = network.buildTransaction(self, web3, guesser.contract, account)
+        build_tx = network.build_transaction(self, web3, guesser.contract, account)
 
         # Sign the transaction and send to the network
         self.log.info('Signing and sending raw transaction')
-        send_tx = network.sendRawTransaction(self, web3, account, build_tx)
+        send_tx = network.send_raw_transaction(self, web3, account, build_tx)
 
         # wait for the transaction receipt and check the status
         self.log.info('Waiting for the send transaction')
-        tx_receipt = network.waitForTransaction(self, web3, send_tx)
+        tx_receipt = network.wait_for_transaction(self, web3, send_tx)
 
         # construct the contract using the contract address
         self.log.info('Construct an instance using the contract address and abi')
