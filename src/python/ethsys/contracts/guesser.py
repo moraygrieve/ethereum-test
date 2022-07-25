@@ -5,21 +5,35 @@ from ethsys.solidity.compile import SolidityCompiler
 
 class Guesser:
 
-    def __init__(self, test,  lower=0, upper=100,):
+    def __init__(self, test, web3, lower=0, upper=100):
+        """Create an instance of the guesser contract, compile and construct a web3 instance
+
+        Contract wrappers will contain a reference to the web3 instance for their connection, and
+        will compile and create an initial instance of the contract ready for deployment.
+        :param test: The owning testcase
+        :param web3: Reference to the web3 instance
+        :param lower: The lower bounds of the number to guess
+        :param upper: The upper bounds of the number to guess
+        """
+        self.bytecode = None
+        self.abi = None
+        self.contract = None
         self.test = test
+        self.web3 = web3
         self.lower = lower
         self.upper = upper
         self.secret = random.randrange(0, 100)
         self.test.log.info("The secret number will be %s" % self.secret)
+        self.construct()
 
-
-    def compile(self):
+    def construct(self):
+        """Compile and construct an instance. """
         path = os.path.join(PROJECT.root, 'utils', 'contracts', 'Guesser.sol')
-        bytecode, abi = SolidityCompiler.compileFile(path)
-        return (bytecode, abi)
-
+        self.bytecode, self.abi = SolidityCompiler.compileFile(path)
+        self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor(self.secret)
 
     def guess(self, contract, max_guesses=100):
+        """Perform a guessing game to get the secret number. """
         lower = self.lower
         upper = self.upper
         nguess = 0
