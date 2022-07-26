@@ -6,7 +6,7 @@ from pysys.constants import *
 class GanacheNetwork:
 
     @classmethod
-    def run(cls, test):
+    def init(cls, test):
         port = test.getNextAvailableTCPPort()
         stdout = os.path.join(test.output, 'ganache.out')
         stderr = os.path.join(test.output, 'ganache.err')
@@ -19,11 +19,11 @@ class GanacheNetwork:
                                      arguments=arguments, stdout=stdout, stderr=stderr, state=BACKGROUND)
 
         test.waitForSignal(stdout, expr='Listening on 127.0.0.1:%d' % port, timeout=10)
-        return hprocess, port
+        return hprocess, '127.0.0.1', port
 
 
     @classmethod
-    def connect(cls, test, host='127.0.0.1', port=3000):
+    def connect(cls, test, host, port):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
         account = web3.eth.account.privateKeyToAccount(Properties().privateKey())
         web3.eth.default_account = account.address

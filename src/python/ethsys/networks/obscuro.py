@@ -7,11 +7,11 @@ from pysys.constants import *
 class ObscuroNetwork:
 
     @classmethod
-    def run(cls, test):
-        return None, 3000
+    def init(cls, test):
+        return None, '127.0.0.1', 3000
 
     @classmethod
-    def connect(cls, test, host='127.0.0.1', port=3000):
+    def connect(cls, test, host, port):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
         private_key = secrets.token_hex(32)
         account = web3.eth.account.privateKeyToAccount(private_key)
@@ -23,7 +23,6 @@ class ObscuroNetwork:
         data = {"address": account.address, "signature": signed_msg.signature.hex()}
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
         requests.post('http://%s:%d/submitviewingkey/' % (host, port), data=json.dumps(data), headers=headers)
-
         return web3, account
 
     @classmethod

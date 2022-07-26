@@ -1,5 +1,5 @@
 from pysys.basetest import BaseTest
-from ethsys.contracts.guesser import Guesser
+from ethsys.contracts.guesser_constructor import GuesserConstructor
 from ethsys.networks.factory import NetworkFactory
 
 
@@ -15,7 +15,7 @@ class PySysTest(BaseTest):
 
         # compile the guessing game and build the deployment transaction
         self.log.info('Compiling the guessing game application')
-        guesser = Guesser(self, web3, 0, 100)
+        guesser = GuesserConstructor(self, web3, 0, 100)
         signed_tx = network.build_transaction(self, web3, guesser.contract, account)
 
         # Sign the transaction and send to the network
@@ -32,4 +32,4 @@ class PySysTest(BaseTest):
 
         # guess the number
         self.log.info('Starting guessing game')
-        self.assertTrue(guesser.guess(contract) == 12)
+        self.assertTrue(guesser.guess(contract) == guesser.secret)

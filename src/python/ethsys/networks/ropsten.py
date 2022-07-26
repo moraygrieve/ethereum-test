@@ -6,12 +6,12 @@ from pysys.constants import *
 class RopstenNetwork:
 
     @classmethod
-    def run(cls, test):
-        return None, None
+    def init(cls, test):
+        return None, 'ropsten.infura.io/v3', None
 
     @classmethod
-    def connect(cls, test, host=None, port=None):
-        web3 = Web3(Web3.HTTPProvider('https://ropsten.infura.io/v3/%s' % Properties().infuraProjectID()))
+    def connect(cls, test, host, port):
+        web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (host, Properties().infuraProjectID())))
         private_key = Properties().privateKey()
         account = web3.eth.account.privateKeyToAccount(private_key)
         return web3, account

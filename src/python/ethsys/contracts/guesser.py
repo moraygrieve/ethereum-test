@@ -22,15 +22,13 @@ class Guesser:
         self.web3 = web3
         self.lower = lower
         self.upper = upper
-        self.secret = random.randrange(0, 100)
-        self.test.log.info("The secret number will be %s" % self.secret)
         self.construct()
 
     def construct(self):
         """Compile and construct an instance. """
-        path = os.path.join(PROJECT.root, 'utils', 'contracts', 'Guesser.sol')
+        path = os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'Guesser.sol')
         self.bytecode, self.abi = SolidityCompiler.compileFile(path)
-        self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor(self.secret)
+        self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
 
     def guess(self, contract, max_guesses=100):
         """Perform a guessing game to get the secret number.
