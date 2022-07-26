@@ -2,7 +2,7 @@
 <pysystest type="auto">
 
     <description>
-        <title>Guesser Constructor - deploy contract and guess the value</title>
+        <title>Guesser - constructor, deploy contract and guess the value</title>
         <purpose><![CDATA[
 A simple smart contract which hard codes a value which it is necessary to guess. Test is setup to run
 against Obscuro, Ropsten or Ganache. There is a constructor and destructor in the contract.
