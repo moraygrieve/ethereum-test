@@ -1,6 +1,6 @@
 import random
+from solcx import compile_source
 from pysys.constants import *
-from ethsys.solidity.compile import SolidityCompiler
 
 
 class Guesser:
@@ -26,9 +26,14 @@ class Guesser:
 
     def construct(self):
         """Compile and construct an instance. """
-        path = os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'Guesser.sol')
+        file = os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'Guesser.sol')
+        with open(file, 'r') as fp:
+            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary='/opt/homebrew/bin/solc',
+                                          base_path=os.path.dirname(file))
+            contract_id, contract_interface = compiled_sol.popitem()
+            self.bytecode = contract_interface['bin']
+            self.abi = contract_interface['abi']
 
-        self.bytecode, self.abi = SolidityCompiler.compileFile(path)
         self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
 
     def guess(self, contract, max_guesses=100):

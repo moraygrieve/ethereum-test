@@ -14,19 +14,19 @@ class PySysTest(BaseTest):
         self.log.info('Using account with address %s' % account.address)
 
         # compile the guessing game and build the deployment transaction
-        self.log.info('Compiling the guessing game application')
-        guesser = ERC20(self, web3)
-        # signed_tx = network.build_transaction(self, web3, guesser.contract, account)
-        #
-        # # Sign the transaction and send to the network
-        # self.log.info('Signing and sending raw transaction')
-        # tx_hash = network.send_transaction(self, web3, guesser.contract, account, signed_tx)
-        #
-        # # wait for the transaction receipt and check the status
-        # self.log.info('Waiting for the send transaction')
-        # tx_receipt = network.wait_for_transaction(self, web3, tx_hash)
-        #
-        # # construct the contract using the contract address
-        # self.log.info('Construct an instance using the contract address and abi')
-        # contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=guesser.abi)
+        self.log.info('Compiling the erc20 ccntract')
+        erc20 = ERC20(self, web3)
+        signed_tx = network.build_transaction(self, web3, erc20.contract, account)
+
+        # Sign the transaction and send to the network
+        self.log.info('Signing and sending raw transaction')
+        tx_hash = network.send_transaction(self, web3, erc20.contract, account, signed_tx)
+
+        # wait for the transaction receipt and check the status
+        self.log.info('Waiting for the send transaction')
+        tx_receipt = network.wait_for_transaction(self, web3, tx_hash)
+
+        # construct the contract using the contract address
+        self.log.info('Construct an instance using the contract address and abi')
+        contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=erc20.abi)
 

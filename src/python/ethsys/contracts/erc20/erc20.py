@@ -1,6 +1,5 @@
-import random
 from pysys.constants import *
-from ethsys.solidity.compile import SolidityCompiler
+from solcx import compile_source
 
 
 class ERC20:
@@ -18,12 +17,17 @@ class ERC20:
         self.contract = None
         self.test = test
         self.web3 = web3
-        self.construct()
+        self.construct(test)
 
-    def construct(self):
+    def construct(self, test):
         """Compile and construct an instance. """
-        path = os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'ERC20.sol')
-        self.bytecode, self.abi = SolidityCompiler.compileFile(path)
-        #self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
+        file = os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'ERC20.sol')
+        with open(file, 'r') as fp:
+            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary='/opt/homebrew/bin/solc',
+                                          base_path=os.path.dirname(file))
+            contract_interface = compiled_sol['<stdin>:ERC20']
+            self.bytecode = contract_interface['bin']
+            self.abi = contract_interface['abi']
+        self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor('OBX TOKEN', 'OBX')
 
 

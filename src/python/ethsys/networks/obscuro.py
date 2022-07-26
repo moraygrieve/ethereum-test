@@ -36,7 +36,7 @@ class ObscuroNetwork(DefaultNetwork):
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': 1499934385,
-                'gas': 720000,
+                'gas': 7200000,
                 'chainId': cls.chain_id()
             }
         )
@@ -58,21 +58,22 @@ class ObscuroNetwork(DefaultNetwork):
     def wait_for_transaction(cls, test, web3, tx_hash):
         start = time.time()
         tx_receipt = None
-        while True:
+        while tx_receipt is None:
             if (time.time() - start) > 60:
                 test.log.error('Timed out waiting for transaction receipt ... aborting')
                 test.addOutcome(TIMEDOUT, abortOnError=TRUE)
 
             try:
                 tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-                if tx_receipt.status == 0:
-                    test.log.error('Transaction receipt has failed status ... aborting')
-                    test.addOutcome(BLOCKED, abortOnError=TRUE)
-                else:
-                    test.log.info('Received transaction receipt')
-                    break
             except Exception as e:
                 test.log.warn('Error waiting for transaction receipt %s' % e)
                 time.sleep(1)
-        test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
+
+        if tx_receipt.status == 1:
+            test.log.info('Transaction deployed, gasUsed=%d' % tx_receipt.gasUsed)
+            test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
+        else:
+            test.log.error('Transaction receipt has failed status')
+            test.log.error('Full receipt: %s' % tx_receipt)
+            test.addOutcome(FAILED, abortOnError=TRUE)
         return tx_receipt

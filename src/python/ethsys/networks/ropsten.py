@@ -27,7 +27,6 @@ class RopstenNetwork(DefaultNetwork):
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': web3.eth.gas_price,
-                'gas': 720000,
                 'chainId': cls.chain_id()
             }
         )
@@ -48,8 +47,12 @@ class RopstenNetwork(DefaultNetwork):
     @classmethod
     def wait_for_transaction(cls, test, web3, tx_hash):
         tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-        if tx_receipt.status == 0:
-            test.log.error('Transaction receipt has failed status ... aborting')
-            test.addOutcome(BLOCKED, abortOnError=TRUE)
-        test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
+        
+        if tx_receipt.status == 1:
+            test.log.info('Transaction deployed, gasUsed=%d' % tx_receipt.gasUsed)
+            test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
+        else:
+            test.log.error('Transaction receipt has failed status')
+            test.log.error('Full receipt: %s' % tx_receipt)
+            test.addOutcome(FAILED, abortOnError=TRUE)
         return tx_receipt
