@@ -27,6 +27,7 @@ class Guesser:
     def construct(self):
         """Compile and construct an instance. """
         path = os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'Guesser.sol')
+
         self.bytecode, self.abi = SolidityCompiler.compileFile(path)
         self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
 

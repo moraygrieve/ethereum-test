@@ -1,7 +1,7 @@
 import random
 from pysys.constants import *
 from ethsys.solidity.compile import SolidityCompiler
-from ethsys.contracts.guesser import Guesser
+from ethsys.contracts.guesser.guesser import Guesser
 
 
 class GuesserConstructor(Guesser):

@@ -1,5 +1,5 @@
 from pysys.basetest import BaseTest
-from ethsys.contracts.guesser_constructor import GuesserConstructor
+from ethsys.contracts.guesser.guesser_constructor import GuesserConstructor
 from ethsys.networks.factory import NetworkFactory
 
 
