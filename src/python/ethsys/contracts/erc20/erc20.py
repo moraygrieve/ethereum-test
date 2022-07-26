@@ -3,6 +3,7 @@ from solcx import compile_source
 
 
 class ERC20:
+    GAS = 7200000
 
     def __init__(self, test, web3):
         """Create an instance of the ERC20 contract, compile and construct a web3 instance

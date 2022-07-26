@@ -4,6 +4,7 @@ from pysys.constants import *
 
 
 class Guesser:
+    GAS = 720000
 
     def __init__(self, test, web3, lower=0, upper=100):
         """Create an instance of the guesser contract, compile and construct a web3 instance

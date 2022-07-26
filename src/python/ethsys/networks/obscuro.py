@@ -31,12 +31,12 @@ class ObscuroNetwork(DefaultNetwork):
         return 777
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account):
+    def build_transaction(cls, test, web3, contract, account, gas):
         build_tx = contract.buildTransaction(
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': 1499934385,
-                'gas': 7200000,
+                'gas': gas,
                 'chainId': cls.chain_id()
             }
         )
@@ -66,7 +66,6 @@ class ObscuroNetwork(DefaultNetwork):
             try:
                 tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
             except Exception as e:
-                test.log.warn('Error waiting for transaction receipt %s' % e)
                 time.sleep(1)
 
         if tx_receipt.status == 1:

@@ -16,7 +16,7 @@ class PySysTest(BaseTest):
         # compile the guessing game and build the deployment transaction
         self.log.info('Compiling the guessing game application')
         guesser = GuesserConstructor(self, web3, 0, 100)
-        signed_tx = network.build_transaction(self, web3, guesser.contract, account)
+        signed_tx = network.build_transaction(self, web3, guesser.contract, account, guesser.GAS)
 
         # Sign the transaction and send to the network
         self.log.info('Signing and sending raw transaction')

@@ -35,7 +35,7 @@ class GanacheNetwork(DefaultNetwork):
         return 1337
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account):
+    def build_transaction(cls, test, web3, contract, account, gas):
         pass
 
     @classmethod

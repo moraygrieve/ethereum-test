@@ -16,7 +16,7 @@ class PySysTest(BaseTest):
         # compile the guessing game and build the deployment transaction
         self.log.info('Compiling the erc20 ccntract')
         erc20 = ERC20(self, web3)
-        signed_tx = network.build_transaction(self, web3, erc20.contract, account)
+        signed_tx = network.build_transaction(self, web3, erc20.contract, account, erc20.GAS)
 
         # Sign the transaction and send to the network
         self.log.info('Signing and sending raw transaction')

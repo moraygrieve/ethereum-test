@@ -22,11 +22,12 @@ class RopstenNetwork(DefaultNetwork):
         return 3
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account):
+    def build_transaction(cls, test, web3, contract, account, gas):
         build_tx = contract.buildTransaction(
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': web3.eth.gas_price,
+                'gas': gas,
                 'chainId': cls.chain_id()
             }
         )
