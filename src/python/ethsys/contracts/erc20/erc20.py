@@ -24,6 +24,6 @@ class ERC20:
         """Compile and construct an instance. """
         path = os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'ERC20.sol')
         self.bytecode, self.abi = SolidityCompiler.compileFile(path)
-        self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
+        #self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode).constructor()
 
 
