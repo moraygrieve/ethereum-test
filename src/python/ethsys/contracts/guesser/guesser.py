@@ -29,8 +29,7 @@ class Guesser:
         """Compile and construct an instance. """
         file = os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'Guesser.sol')
         with open(file, 'r') as fp:
-            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary='/opt/homebrew/bin/solc',
-                                          base_path=os.path.dirname(file))
+            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary='/opt/homebrew/bin/solc')
             contract_id, contract_interface = compiled_sol.popitem()
             self.bytecode = contract_interface['bin']
             self.abi = contract_interface['abi']
