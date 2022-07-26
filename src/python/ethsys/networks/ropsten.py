@@ -1,9 +1,10 @@
 from web3 import Web3
 from ethsys.utils.properties import Properties
 from pysys.constants import *
+from ethsys.networks.default import DefaultNetwork
 
 
-class RopstenNetwork:
+class RopstenNetwork(DefaultNetwork):
 
     @classmethod
     def init(cls, test):
@@ -17,13 +18,17 @@ class RopstenNetwork:
         return web3, account
 
     @classmethod
+    def chain_id(cls):
+        return 3
+
+    @classmethod
     def build_transaction(cls, test, web3, contract, account):
         build_tx = contract.buildTransaction(
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': web3.eth.gas_price,
                 'gas': 720000,
-                'chainId': 3
+                'chainId': cls.chain_id()
             }
         )
         signed_tx = account.sign_transaction(build_tx)

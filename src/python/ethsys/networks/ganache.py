@@ -1,9 +1,10 @@
 from web3 import Web3
 from ethsys.utils.properties import Properties
+from ethsys.networks.default import DefaultNetwork
 from pysys.constants import *
 
 
-class GanacheNetwork:
+class GanacheNetwork(DefaultNetwork):
 
     @classmethod
     def init(cls, test):
@@ -28,6 +29,10 @@ class GanacheNetwork:
         account = web3.eth.account.privateKeyToAccount(Properties().privateKey())
         web3.eth.default_account = account.address
         return web3, account
+
+    @classmethod
+    def chain_id(cls):
+        return 1337
 
     @classmethod
     def build_transaction(cls, test, web3, contract, account):

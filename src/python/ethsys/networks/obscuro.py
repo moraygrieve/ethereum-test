@@ -2,9 +2,10 @@ import secrets, requests, time, json
 from web3 import Web3
 from eth_account.messages import encode_defunct
 from pysys.constants import *
+from ethsys.networks.default import DefaultNetwork
 
 
-class ObscuroNetwork:
+class ObscuroNetwork(DefaultNetwork):
 
     @classmethod
     def init(cls, test):
@@ -26,13 +27,17 @@ class ObscuroNetwork:
         return web3, account
 
     @classmethod
+    def chain_id(cls):
+        return 777
+
+    @classmethod
     def build_transaction(cls, test, web3, contract, account):
         build_tx = contract.buildTransaction(
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': 1499934385,
                 'gas': 720000,
-                'chainId': 777
+                'chainId': cls.chain_id()
             }
         )
         signed_tx = account.sign_transaction(build_tx)

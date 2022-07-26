@@ -13,6 +13,8 @@
             <group></group>
         </groups>
         <modes inherit="true">
+            <mode>obscuro</mode>
+            <mode>ropsten</mode>
         </modes>
     </classification>
 
