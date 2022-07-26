@@ -29,3 +29,6 @@ class PySysTest(BaseTest):
         # construct the contract using the contract address
         self.log.info('Construct an instance using the contract address and abi')
         contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=storage.abi)
+
+        # retrieve the stored value
+        self.log.info('Retrieve %d' % contract.functions.retrieve().call())
