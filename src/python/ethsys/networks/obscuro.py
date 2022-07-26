@@ -71,7 +71,7 @@ class ObscuroNetwork(DefaultNetwork):
 
         if tx_receipt.status == 1:
             test.log.info('Transaction deployed, gasUsed=%d' % tx_receipt.gasUsed)
-            test.log.info('Transaction receipt for block hash %s' % tx_receipt.blockHash.hex())
+            test.log.info('Transaction receipt with block hash %s' % tx_receipt.blockHash.hex())
         else:
             test.log.error('Transaction receipt has failed status')
             test.log.error('Full receipt: %s' % tx_receipt)
