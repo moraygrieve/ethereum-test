@@ -1,10 +1,10 @@
 Ethsys
 ------
-Test repo for building and running solidity smart contracts on Ethereum against a variety of networks e.g. ganache, 
+Project repo for building and running solidity smart contracts on Ethereum against a variety of networks e.g. ganache, 
 ropsten and obscuro. The repo uses the [Pysys](https://pysys-test.github.io/pysys-test/) test framework to manage 
 all tests and their execution. All tests are fully system level using [web3.py](https://web3py.readthedocs.io/en/stable/)
-to interact with the networks which are managed outside the scope of the tests, as the application under test. Note the 
-project is currently under continuous active development. 
+to interact with the networks which are managed outside the scope of the tests. Note the project is currently under 
+continuous active development and further information on running the tests will be added to this readme over time. 
 
 
 Structure
