@@ -12,7 +12,6 @@ Structure
 The top level structure of the project is as below;
 
 ```
-.
 ├── README.md            # Readme 
 ├── pysysproject.xml     # The pysys project file
 ├── src                  # The project source root for test execution 
