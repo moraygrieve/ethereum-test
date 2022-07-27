@@ -22,6 +22,13 @@ class RopstenNetwork(DefaultNetwork):
         return 3
 
     @classmethod
+    def transact(cls, test, web3, target, account, gas):
+        tx_sign = cls.build_transaction(test, web3, target, account, gas)
+        tx_hash = cls.send_transaction(test, web3, target, tx_sign)
+        tx_recp = cls.wait_for_transaction(test, web3, tx_hash)
+        return tx_recp
+
+    @classmethod
     def build_transaction(cls, test, web3, target, account, gas):
         build_tx = target.buildTransaction(
             {

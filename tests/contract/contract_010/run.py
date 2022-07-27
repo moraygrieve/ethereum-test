@@ -9,24 +9,16 @@ class PySysTest(BaseTest):
         network = NetworkFactory.get_network(self)
         process, host, port = network.init(self)
 
-        # connect to the network, create a local private key and convert into the account
+        # connect to the network
         web3, account = network.connect(self, host, port)
         self.log.info('Using account with address %s' % account.address)
 
-        # compile the guessing game and build the deployment transaction
-        self.log.info('Compiling the erc20 ccntract')
+        # deploy the contract
+        self.log.info('Deploy the ERC20 contract')
         erc20 = ERC20(self, web3)
-        signed_tx = network.build_transaction(self, web3, erc20.contract, account, erc20.GAS)
+        tx_receipt = network.transact(self, web3, erc20.contract, account, erc20.GAS)
 
-        # Sign the transaction and send to the network
-        self.log.info('Signing and sending raw transaction')
-        tx_hash = network.send_transaction(self, web3, erc20.contract, signed_tx)
-
-        # wait for the transaction receipt and check the status
-        self.log.info('Waiting for the send transaction')
-        tx_receipt = network.wait_for_transaction(self, web3, tx_hash)
-
-        # construct the contract using the contract address
+        # construct contract instance
         self.log.info('Construct an instance using the contract address and abi')
         contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=erc20.abi)
 
