@@ -4,6 +4,7 @@ from pysys.writer.outcomes import JUnitXMLResultsWriter
 from pysys.utils.logutils import stripANSIEscapeCodes
 from xml.dom.minidom import getDOMImplementation
 
+
 class GitLabTestsWriter(JUnitXMLResultsWriter):
     outputDir = None
 
@@ -44,7 +45,7 @@ class GitLabTestsWriter(JUnitXMLResultsWriter):
         testcase.setAttributeNode(attr3)
 
         # add in failure information if the test has failed
-        if (testObj.getOutcome().isFailure()):
+        if testObj.getOutcome().isFailure():
             failure = document.createElement('failure')
             attr1 = document.createAttribute('message')
             attr1.value = str(testObj.getOutcome())

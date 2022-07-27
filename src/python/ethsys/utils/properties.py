@@ -1,6 +1,7 @@
 import getpass, configparser
 from pysys.constants import *
 
+
 class Properties():
 
     def __init__(self):
