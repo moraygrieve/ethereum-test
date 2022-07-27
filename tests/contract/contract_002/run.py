@@ -20,7 +20,7 @@ class PySysTest(BaseTest):
 
         # Sign the transaction and send to the network
         self.log.info('Signing and sending raw transaction')
-        tx_hash = network.send_transaction(self, web3, guesser.contract, account, signed_tx)
+        tx_hash = network.send_transaction(self, web3, guesser.contract, signed_tx)
 
         # wait for the transaction receipt and check the status
         self.log.info('Waiting for the send transaction')

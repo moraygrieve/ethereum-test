@@ -2,6 +2,8 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract Storage {
+    event Stored(uint256 value);
+
     address public owner;
     uint256 number;
 
@@ -12,6 +14,7 @@ contract Storage {
 
     function store(uint256 num) public {
         number = num;
+        emit Stored(number);
     }
 
     function retrieve() public view returns (uint256){

@@ -31,8 +31,8 @@ class ObscuroNetwork(DefaultNetwork):
         return 777
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account, gas):
-        build_tx = contract.buildTransaction(
+    def build_transaction(cls, test, web3, target, account, gas):
+        build_tx = target.buildTransaction(
             {
                 'nonce': web3.eth.get_transaction_count(account.address),
                 'gasPrice': 1499934385,
@@ -44,7 +44,7 @@ class ObscuroNetwork(DefaultNetwork):
         return signed_tx
 
     @classmethod
-    def send_transaction(cls, test, web3, contract, account, signed_tx):
+    def send_transaction(cls, test, web3, target, signed_tx):
         tx_hash = None
         try:
             tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
@@ -69,10 +69,10 @@ class ObscuroNetwork(DefaultNetwork):
                 time.sleep(1)
 
         if tx_receipt.status == 1:
-            test.log.info('Transaction deployed, gasUsed=%d' % tx_receipt.gasUsed)
-            test.log.info('Transaction receipt with block hash %s' % tx_receipt.blockHash.hex())
+            test.log.info('Transaction complete gasUsed=%d' % tx_receipt.gasUsed)
+            test.log.info('Transaction receipt block hash %s' % tx_receipt.blockHash.hex())
         else:
-            test.log.error('Transaction receipt has failed status')
+            test.log.error('Transaction receipt failed')
             test.log.error('Full receipt: %s' % tx_receipt)
             test.addOutcome(FAILED, abortOnError=TRUE)
         return tx_receipt

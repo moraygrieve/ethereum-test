@@ -37,11 +37,11 @@ class DefaultNetwork:
         return web3.eth.gas_price
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account, gas):
+    def build_transaction(cls, test, web3, target, account, gas):
         return None
 
     @classmethod
-    def send_transaction(cls, test, web3, contract, account, build_tx):
+    def send_transaction(cls, test, web3, target, build_tx):
         return None
 
     @classmethod

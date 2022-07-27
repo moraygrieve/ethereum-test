@@ -35,12 +35,12 @@ class GanacheNetwork(DefaultNetwork):
         return 1337
 
     @classmethod
-    def build_transaction(cls, test, web3, contract, account, gas):
+    def build_transaction(cls, test, web3, target, account, gas):
         pass
 
     @classmethod
-    def send_transaction(cls, test, web3, contract, account, build_tx):
-        return contract.transact()
+    def send_transaction(cls, test, web3, target, build_tx):
+        return target.transact()
 
     @classmethod
     def wait_for_transaction(cls, test, web3, tx_hash):

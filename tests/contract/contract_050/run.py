@@ -20,7 +20,7 @@ class PySysTest(BaseTest):
 
         # Sign the transaction and send to the network
         self.log.info('Signing and sending raw transaction')
-        tx_hash = network.send_transaction(self, web3, storage.contract, account, signed_tx)
+        tx_hash = network.send_transaction(self, web3, storage.contract, signed_tx)
 
         # wait for the transaction receipt and check the status
         self.log.info('Waiting for the send transaction')
@@ -30,5 +30,19 @@ class PySysTest(BaseTest):
         self.log.info('Construct an instance using the contract address and abi')
         contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=storage.abi)
 
-        # retrieve the stored value
-        self.log.info('Retrieve %d' % contract.functions.retrieve().call())
+        # retrieve the stored value via a call (not state change and synchronous)
+        self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+
+        # store and then retrieve a new value
+        build_tx = contract.functions.store(200).buildTransaction({
+            "from": account.address,
+            'nonce': web3.eth.get_transaction_count(account.address),
+            'gasPrice': web3.eth.gas_price,
+            'gas': 72000,
+            'chainId': 3}
+        )
+        signed_tx = account.sign_transaction(build_tx)
+        tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_receipt = network.wait_for_transaction(self, web3, tx_hash)
+        self.log.info('Transaction logs show value %d' % contract.events.Stored().processReceipt(tx_receipt)[0]['args']['value'])
+        self.log.info('Call shows value %d' % contract.functions.retrieve().call())
