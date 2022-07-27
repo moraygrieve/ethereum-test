@@ -1,5 +1,5 @@
-Ethsys
-------
+Ethereum Test Framework (multiple networks)
+-------------------------------------------
 Project repo for building and running solidity smart contracts on Ethereum against a variety of networks e.g. ganache, 
 ropsten and obscuro. The repo uses the [Pysys](https://pysys-test.github.io/pysys-test/) test framework to manage 
 all tests and their execution. All tests are fully system level using [web3.py](https://web3py.readthedocs.io/en/stable/)
@@ -7,8 +7,8 @@ to interact with the networks which are managed outside the scope of the tests. 
 continuous active development and further information on running the tests will be added to this readme over time. 
 
 
-Structure
-----------
+Repository Structure
+--------------------
 The top level structure of the project is as below;
 
 ```
@@ -39,15 +39,15 @@ python3 -m pip install py-solc-x
 The following node.js, ethereum and solidity dependencies and their installation is as given below;
 
 ```bash
-# install solc (which differs from solcjs and is used by python solcx)
-brew tap ethereum/ethereum
-brew install solidity
-
 # install homebrew and node.js
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew update
 brew upgrade
 brew install node
+
+# install solc (which differs from solcjs and is used by python solcx)
+brew tap ethereum/ethereum
+brew install solidity
 
 # install solcjs
 npm install -g solc@0.8.15
