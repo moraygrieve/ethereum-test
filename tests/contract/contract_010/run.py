@@ -1,5 +1,5 @@
 from pysys.basetest import BaseTest
-from ethsys.contracts.erc20.erc20 import ERC20
+from ethsys.contracts.storage.storage import Storage
 from ethsys.networks.factory import NetworkFactory
 
 
@@ -14,11 +14,21 @@ class PySysTest(BaseTest):
         self.log.info('Using account with address %s' % account.address)
 
         # deploy the contract
-        self.log.info('Deploy the ERC20 contract')
-        erc20 = ERC20(self, web3)
-        tx_receipt = network.transact(self, web3, erc20.contract, account, erc20.GAS)
+        self.log.info('Deploy the Storage contract')
+        storage = Storage(self, web3, 100)
+        tx_receipt = network.transact(self, web3, storage.contract, account, storage.GAS)
 
         # construct contract instance
         self.log.info('Construct an instance using the contract address and abi')
-        contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=erc20.abi)
+        contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=storage.abi)
 
+        # retrieve via a call
+        self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+
+        # set the value via a transaction, compare to call and transaction log
+        tx_receipt = network.transact(self, web3, contract.functions.store(200), account, storage.GAS)
+        self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+        tx_log = contract.events.Stored().processReceipt(tx_receipt)[0]
+        args_value = tx_log['args']['value']
+        self.log.info('Transaction log shows value %d' % contract.functions.retrieve().call())
+        self.assertTrue(args_value == 200)

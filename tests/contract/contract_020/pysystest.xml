@@ -2,10 +2,8 @@
 <pysystest type="auto">
 
     <description>
-        <title>Storage - deploy contract and set value</title>
+        <title>ERC20 - deploy contract</title>
         <purpose><![CDATA[]]>
-Deploy the storage contract, call to get the current value, store a new value as a transaction, extract the
-value from the transaction log, and call again.
         </purpose>
     </description>
 
