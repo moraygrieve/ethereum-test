@@ -15,10 +15,11 @@ class PySysTest(BaseTest):
 
         # deploy the contract
         self.log.info('Deploy the ERC20 contract')
-        erc20 = ERC20(self, web3)
+        erc20 = ERC20(self, web3, name='OBX TOKEN', symbol='OBX')
         tx_receipt = network.transact(self, web3, erc20.contract, account, erc20.GAS)
 
         # construct contract instance
         self.log.info('Construct an instance using the contract address and abi')
         contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=erc20.abi)
 
+        # allocate funds
