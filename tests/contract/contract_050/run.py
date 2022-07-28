@@ -22,8 +22,13 @@ class PySysTest(BaseTest):
         self.log.info('Construct an instance using the contract address and abi')
         contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=storage.abi)
 
-        # retrieve, store and retrieve a new value
+        # retrieve via a call
         self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+
+        # set the value via a transaction, compare to call and transaction log
         tx_receipt = network.transact(self, web3, contract.functions.store(200), account, storage.GAS)
-        self.log.info('Transaction logs show value %d' % contract.events.Stored().processReceipt(tx_receipt)[0]['args']['value'])
         self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+        tx_log = contract.events.Stored().processReceipt(tx_receipt)[0]
+        args_value = tx_log['args']['value']
+        self.log.info('Transaction log shows value %d' % contract.functions.retrieve().call())
+        self.assertTrue(args_value == 200)
