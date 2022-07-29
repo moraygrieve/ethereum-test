@@ -8,21 +8,21 @@ class GanacheNetwork(DefaultNetwork):
     PORT = 8545
 
     @classmethod
-    def connect_owner(cls):
+    def connect_account1(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
         account = web3.eth.account.privateKeyToAccount(Properties().ownerPK())
         web3.eth.default_account = account.address
         return web3, account
 
     @classmethod
-    def connect_account1(cls):
+    def connect_account2(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
         account = web3.eth.account.privateKeyToAccount(Properties().account1PK())
         web3.eth.default_account = account.address
         return web3, account
 
     @classmethod
-    def connect_account2(cls):
+    def connect_account3(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
         account = web3.eth.account.privateKeyToAccount(Properties().account2PK())
         web3.eth.default_account = account.address

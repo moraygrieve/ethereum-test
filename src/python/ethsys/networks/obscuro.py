@@ -12,7 +12,7 @@ class ObscuroNetwork(DefaultNetwork):
     ACCOUNT2_PORT = 5000
 
     @classmethod
-    def connect_owner(cls):
+    def connect_account1(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.OWNER1_PORT)))
         private_key = Properties().ownerPK()
         account = web3.eth.account.privateKeyToAccount(private_key)
@@ -20,7 +20,7 @@ class ObscuroNetwork(DefaultNetwork):
         return web3, account
 
     @classmethod
-    def connect_account1(cls):
+    def connect_account2(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT1_PORT)))
         private_key = Properties().account1PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
@@ -28,7 +28,7 @@ class ObscuroNetwork(DefaultNetwork):
         return web3, account
 
     @classmethod
-    def connect_account2(cls):
+    def connect_account3(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT2_PORT)))
         private_key = Properties().account2PK()
         account = web3.eth.account.privateKeyToAccount(private_key)

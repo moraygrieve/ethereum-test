@@ -1,15 +1,15 @@
 class DefaultNetwork:
 
     @classmethod
-    def connect_owner(cls):
-        return None
-
-    @classmethod
     def connect_account1(cls):
         return None
 
     @classmethod
     def connect_account2(cls):
+        return None
+
+    @classmethod
+    def connect_account3(cls):
         return None
 
     @classmethod

@@ -8,7 +8,7 @@ class PySysTest(BaseTest):
     def execute(self):
         # connect to the network
         network = NetworkFactory.get_network(self)
-        web3, account = network.connect_owner()
+        web3, account = network.connect_account1()
         self.log.info('Using account with address %s' % account.address)
 
         # deploy the contract
