@@ -1,12 +1,16 @@
 class DefaultNetwork:
 
     @classmethod
-    def init(cls, test):
-        return None, None, None
+    def connect_owner(cls):
+        return None
 
     @classmethod
-    def connect(cls, test, host, port):
-        return None, None
+    def connect_account1(cls):
+        return None
+
+    @classmethod
+    def connect_account2(cls):
+        return None
 
     @classmethod
     def chain_id(cls):

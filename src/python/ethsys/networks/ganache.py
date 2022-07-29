@@ -1,32 +1,30 @@
 from web3 import Web3
 from ethsys.utils.properties import Properties
 from ethsys.networks.default import DefaultNetwork
-from pysys.constants import *
 
 
 class GanacheNetwork(DefaultNetwork):
+    HOST = '127.0.0.1'
+    PORT = 8545
 
     @classmethod
-    def init(cls, test):
-        port = test.getNextAvailableTCPPort()
-        stdout = os.path.join(test.output, 'ganache.out')
-        stderr = os.path.join(test.output, 'ganache.err')
-
-        arguments = []
-        if port is not None: arguments.extend(('--port', str(port)))
-        arguments.extend(('--account', '0x%s,1000000000000000000' % Properties().privateKey()))
-        hprocess = test.startProcess(command=PROJECT.ganacheBin, displayName='ganache', workingDir=test.output,
-                                     environs=os.environ,
-                                     arguments=arguments, stdout=stdout, stderr=stderr, state=BACKGROUND)
-
-        test.waitForSignal(stdout, expr='Listening on 127.0.0.1:%d' % port, timeout=10)
-        return hprocess, '127.0.0.1', port
-
+    def connect_owner(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
+        account = web3.eth.account.privateKeyToAccount(Properties().ownerPK())
+        web3.eth.default_account = account.address
+        return web3, account
 
     @classmethod
-    def connect(cls, test, host, port):
-        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
-        account = web3.eth.account.privateKeyToAccount(Properties().privateKey())
+    def connect_account1(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
+        account = web3.eth.account.privateKeyToAccount(Properties().account1PK())
+        web3.eth.default_account = account.address
+        return web3, account
+
+    @classmethod
+    def connect_account2(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.PORT)))
+        account = web3.eth.account.privateKeyToAccount(Properties().account2PK())
         web3.eth.default_account = account.address
         return web3, account
 

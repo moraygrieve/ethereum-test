@@ -2,7 +2,7 @@
 <pysystest type="auto">
 
     <description>
-        <title>ERC20 - deploy contract</title>
+        <title>OBXCoin - allocate funds to individual</title>
         <purpose><![CDATA[]]>
         </purpose>
     </description>
@@ -14,7 +14,6 @@
         <modes inherit="true">
             <mode>obscuro</mode>
             <mode>ropsten</mode>
-            <mode>ganache</mode>
         </modes>
     </classification>
 

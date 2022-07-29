@@ -1,29 +1,38 @@
-import secrets, requests, time, json
+import requests, time, json
 from web3 import Web3
-from eth_account.messages import encode_defunct
 from pysys.constants import *
 from ethsys.networks.default import DefaultNetwork
-
+from ethsys.utils.properties import Properties
+from eth_account.messages import encode_defunct
 
 class ObscuroNetwork(DefaultNetwork):
+    HOST = '127.0.0.1'
+    OWNER1_PORT = 3000
+    ACCOUNT1_PORT = 4000
+    ACCOUNT2_PORT = 5000
 
     @classmethod
-    def init(cls, test):
-        return None, '127.0.0.1', 3000
-
-    @classmethod
-    def connect(cls, test, host, port):
-        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
-        private_key = secrets.token_hex(32)
+    def connect_owner(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.OWNER1_PORT)))
+        private_key = Properties().ownerPK()
         account = web3.eth.account.privateKeyToAccount(private_key)
+        cls.__generateViewingKey(web3, cls.HOST, cls.OWNER1_PORT, account, private_key)
+        return web3, account
 
-        # generate a viewing key for this account, sign and post it to the wallet extension
-        response = requests.get('http://%s:%d/generateviewingkey/' % (host, port))
-        signed_msg = web3.eth.account.sign_message(encode_defunct(text='vk' + response.text), private_key=private_key)
+    @classmethod
+    def connect_account1(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT1_PORT)))
+        private_key = Properties().account1PK()
+        account = web3.eth.account.privateKeyToAccount(private_key)
+        cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT1_PORT, account, private_key)
+        return web3, account
 
-        data = {"address": account.address, "signature": signed_msg.signature.hex()}
-        headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        requests.post('http://%s:%d/submitviewingkey/' % (host, port), data=json.dumps(data), headers=headers)
+    @classmethod
+    def connect_account2(cls):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT2_PORT)))
+        private_key = Properties().account2PK()
+        account = web3.eth.account.privateKeyToAccount(private_key)
+        cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT2_PORT, account, private_key)
         return web3, account
 
     @classmethod
@@ -83,3 +92,13 @@ class ObscuroNetwork(DefaultNetwork):
             test.log.error('Full receipt: %s' % tx_receipt)
             test.addOutcome(FAILED, abortOnError=TRUE)
         return tx_receipt
+
+    @classmethod
+    def __generateViewingKey(cls, web3, host, port, account, private_key):
+        # generate a viewing key for this account, sign and post it to the wallet extension
+        response = requests.get('http://%s:%d/generateviewingkey/' % (host, port))
+        signed_msg = web3.eth.account.sign_message(encode_defunct(text='vk' + response.text), private_key=private_key)
+
+        data = {"address": account.address, "signature": signed_msg.signature.hex()}
+        headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+        requests.post('http://%s:%d/submitviewingkey/' % (host, port), data=json.dumps(data), headers=headers)

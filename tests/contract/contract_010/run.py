@@ -6,11 +6,9 @@ from ethsys.networks.factory import NetworkFactory
 class PySysTest(BaseTest):
 
     def execute(self):
-        network = NetworkFactory.get_network(self)
-        process, host, port = network.init(self)
-
         # connect to the network
-        web3, account = network.connect(self, host, port)
+        network = NetworkFactory.get_network(self)
+        web3, account = network.connect_owner()
         self.log.info('Using account with address %s' % account.address)
 
         # deploy the contract
@@ -28,7 +26,8 @@ class PySysTest(BaseTest):
         # set the value via a transaction, compare to call and transaction log
         tx_receipt = network.transact(self, web3, contract.functions.store(200), account, storage.GAS)
         self.log.info('Call shows value %d' % contract.functions.retrieve().call())
+
         tx_log = contract.events.Stored().processReceipt(tx_receipt)[0]
         args_value = tx_log['args']['value']
-        self.log.info('Transaction log shows value %d' % contract.functions.retrieve().call())
+        self.log.info('Transaction log shows value %d' % args_value)
         self.assertTrue(args_value == 200)

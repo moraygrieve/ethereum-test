@@ -6,11 +6,9 @@ from ethsys.networks.factory import NetworkFactory
 class PySysTest(BaseTest):
 
     def execute(self):
-        network = NetworkFactory.get_network(self)
-        process, host, port = network.init(self)
-
         # connect to the network
-        web3, account = network.connect(self, host, port)
+        network = NetworkFactory.get_network(self)
+        web3, account = network.connect_owner()
         self.log.info('Using account with address %s' % account.address)
 
         # deploy the contract

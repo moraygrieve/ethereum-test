@@ -1,19 +1,31 @@
 from web3 import Web3
-from ethsys.utils.properties import Properties
 from pysys.constants import *
+from ethsys.utils.properties import Properties
 from ethsys.networks.default import DefaultNetwork
 
 
 class RopstenNetwork(DefaultNetwork):
+    HOST = 'ropsten.infura.io/v3'
+    PORT = None
 
     @classmethod
-    def init(cls, test):
-        return None, 'ropsten.infura.io/v3', None
+    def connect_owner(cls):
+        web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
+        private_key = Properties().ownerPK()
+        account = web3.eth.account.privateKeyToAccount(private_key)
+        return web3, account
 
     @classmethod
-    def connect(cls, test, host, port):
-        web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (host, Properties().infuraProjectID())))
-        private_key = Properties().privateKey()
+    def connect_account1(cls):
+        web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
+        private_key = Properties().account1PK()
+        account = web3.eth.account.privateKeyToAccount(private_key)
+        return web3, account
+
+    @classmethod
+    def connect_account2(cls):
+        web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
+        private_key = Properties().account2PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         return web3, account
 
