@@ -15,6 +15,7 @@
         <modes inherit="true">
             <mode>obscuro</mode>
             <mode>ropsten</mode>
+            <mode>ganache</mode>
         </modes>
     </classification>
 
