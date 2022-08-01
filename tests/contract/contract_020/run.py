@@ -9,7 +9,7 @@ class PySysTest(BaseTest):
     def execute(self):
         # connect to the network
         network = NetworkFactory.get_network(self)
-        web3_2, account3 = network.connect_account3()
+        web3_3, account3 = network.connect_account3()
         web3_2, account2 = network.connect_account2()
         web3_1, account1 = network.connect_account1()
         self.log.info('Using account with address %s' % account1.address)

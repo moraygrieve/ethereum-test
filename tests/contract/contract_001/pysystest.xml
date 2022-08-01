@@ -17,6 +17,7 @@ against Obscuro, Ropsten or Ganache. There is no constructor or destructor in th
         <modes inherit="true">
             <mode>obscuro</mode>
             <mode>ropsten</mode>
+            <mode>ganache</mode>
         </modes>
     </classification>
 
