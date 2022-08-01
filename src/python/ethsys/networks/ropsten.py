@@ -11,21 +11,21 @@ class RopstenNetwork(DefaultNetwork):
     @classmethod
     def connect_account1(cls):
         web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
-        private_key = Properties().ownerPK()
+        private_key = Properties().account1PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         return web3, account
 
     @classmethod
     def connect_account2(cls):
         web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
-        private_key = Properties().account1PK()
+        private_key = Properties().account2PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         return web3, account
 
     @classmethod
     def connect_account3(cls):
         web3 = Web3(Web3.HTTPProvider('https://%s/%s' % (cls.HOST, Properties().infuraProjectID())))
-        private_key = Properties().account2PK()
+        private_key = Properties().account3PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         return web3, account
 

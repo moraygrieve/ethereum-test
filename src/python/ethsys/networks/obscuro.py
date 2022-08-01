@@ -5,6 +5,7 @@ from ethsys.networks.default import DefaultNetwork
 from ethsys.utils.properties import Properties
 from eth_account.messages import encode_defunct
 
+
 class ObscuroNetwork(DefaultNetwork):
     HOST = '127.0.0.1'
     OWNER1_PORT = 3000
@@ -14,7 +15,7 @@ class ObscuroNetwork(DefaultNetwork):
     @classmethod
     def connect_account1(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.OWNER1_PORT)))
-        private_key = Properties().ownerPK()
+        private_key = Properties().account1PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         cls.__generateViewingKey(web3, cls.HOST, cls.OWNER1_PORT, account, private_key)
         return web3, account
@@ -22,7 +23,7 @@ class ObscuroNetwork(DefaultNetwork):
     @classmethod
     def connect_account2(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT1_PORT)))
-        private_key = Properties().account1PK()
+        private_key = Properties().account2PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT1_PORT, account, private_key)
         return web3, account
@@ -30,7 +31,7 @@ class ObscuroNetwork(DefaultNetwork):
     @classmethod
     def connect_account3(cls):
         web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT2_PORT)))
-        private_key = Properties().account2PK()
+        private_key = Properties().account3PK()
         account = web3.eth.account.privateKeyToAccount(private_key)
         cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT2_PORT, account, private_key)
         return web3, account
