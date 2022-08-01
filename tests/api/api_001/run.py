@@ -4,11 +4,9 @@ from ethsys.networks.factory import NetworkFactory
 
 class PySysTest(BaseTest):
     def execute(self):
+        # connect to the network
         network = NetworkFactory.get_network(self)
-        process, host, port = network.init(self)
-
-        # connect to the network, create a local private key and convert into the account
-        web3, account = network.connect(self, host, port)
+        web3, account = network.connect_account1()
         self.log.info('Using account with address %s' % account.address)
 
         # get the chain id
