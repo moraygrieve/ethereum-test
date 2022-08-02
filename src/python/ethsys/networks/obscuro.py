@@ -3,73 +3,48 @@ from web3 import Web3
 from pysys.constants import *
 from ethsys.networks.default import DefaultNetwork
 from ethsys.utils.properties import Properties
+from ethsys.networks.geth import GethNetwork
 from eth_account.messages import encode_defunct
+
+
+class ObscuroL1(GethNetwork):
+    HOST = 'testnet-gethnetwork.uksouth.azurecontainer.io'
+    PORT = 8025
+
+
+class ObscuroL1Local(GethNetwork):
+    HOST = '127.0.0.1'
+    PORT = 8025
 
 
 class ObscuroNetwork(DefaultNetwork):
     HOST = '127.0.0.1'
-    OWNER1_PORT = 3000
-    ACCOUNT1_PORT = 4000
-    ACCOUNT2_PORT = 5000
-
-    @classmethod
-    def connect_account1(cls):
-        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.OWNER1_PORT)))
-        private_key = Properties().account1PK()
-        account = web3.eth.account.privateKeyToAccount(private_key)
-        cls.__generateViewingKey(web3, cls.HOST, cls.OWNER1_PORT, account, private_key)
-        return web3, account
-
-    @classmethod
-    def connect_account2(cls):
-        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT1_PORT)))
-        private_key = Properties().account2PK()
-        account = web3.eth.account.privateKeyToAccount(private_key)
-        cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT1_PORT, account, private_key)
-        return web3, account
-
-    @classmethod
-    def connect_account3(cls):
-        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (cls.HOST, cls.ACCOUNT2_PORT)))
-        private_key = Properties().account3PK()
-        account = web3.eth.account.privateKeyToAccount(private_key)
-        cls.__generateViewingKey(web3, cls.HOST, cls.ACCOUNT2_PORT, account, private_key)
-        return web3, account
+    ACCOUNT1_PORT = 3000
+    ACCOUNT2_PORT = 4000
+    ACCOUNT3_PORT = 5000
 
     @classmethod
     def chain_id(cls):
         return 777
 
     @classmethod
-    def transact(cls, test, web3, target, account, gas):
-        tx_sign = cls.build_transaction(test, web3, target, account, gas)
-        tx_hash = cls.send_transaction(test, web3, target, tx_sign)
-        tx_recp = cls.wait_for_transaction(test, web3, tx_hash)
-        return tx_recp
+    def connect(cls, private_key, host, port):
+        web3 = Web3(Web3.HTTPProvider('http://%s:%d' % (host, port)))
+        account = web3.eth.account.privateKeyToAccount(private_key)
+        cls.__generate_viewing_key(web3, host, port, account, private_key)
+        return web3, account
 
     @classmethod
-    def build_transaction(cls, test, web3, target, account, gas):
-        build_tx = target.buildTransaction(
-            {
-                'nonce': web3.eth.get_transaction_count(account.address),
-                'gasPrice': 1499934385,
-                'gas': gas,
-                'chainId': cls.chain_id()
-            }
-        )
-        signed_tx = account.sign_transaction(build_tx)
-        return signed_tx
+    def connect_account1(cls):
+        return cls.connect(Properties().account1pk(), cls.HOST, cls.ACCOUNT1_PORT)
 
     @classmethod
-    def send_transaction(cls, test, web3, target, signed_tx):
-        tx_hash = None
-        try:
-            tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
-        except Exception as e:
-            test.log.error('Error sending raw transaction %s' % e)
-            test.addOutcome(BLOCKED, abortOnError=TRUE)
-        test.log.info('Transaction sent with hash %s' % tx_hash.hex())
-        return tx_hash
+    def connect_account2(cls):
+        return cls.connect(Properties().account2pk(), cls.HOST, cls.ACCOUNT2_PORT)
+
+    @classmethod
+    def connect_account3(cls):
+        return cls.connect(Properties().account3pk(), cls.HOST, cls.ACCOUNT3_PORT)
 
     @classmethod
     def wait_for_transaction(cls, test, web3, tx_hash):
@@ -95,7 +70,7 @@ class ObscuroNetwork(DefaultNetwork):
         return tx_receipt
 
     @classmethod
-    def __generateViewingKey(cls, web3, host, port, account, private_key):
+    def __generate_viewing_key(cls, web3, host, port, account, private_key):
         # generate a viewing key for this account, sign and post it to the wallet extension
         response = requests.get('http://%s:%d/generateviewingkey/' % (host, port))
         signed_msg = web3.eth.account.sign_message(encode_defunct(text='vk' + response.text), private_key=private_key)

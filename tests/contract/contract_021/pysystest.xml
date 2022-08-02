@@ -2,12 +2,8 @@
 <pysystest type="auto">
 
     <description>
-        <title>OBXCoin - check for contract deployment using json abi</title>
+        <title>Obscuro L1 - ERC20 ETH transfer and transfer from</title>
         <purpose><![CDATA[]]>
-            Uses one web3 instance for account1 to compiled and deploy the OBX ERC20 contract and transfer
-            balance to account2. Then creates another web3 instance using the contract address and the json
-            abi to call functions against the contract. This simulates creating a contract instance from the
-            contract address only and an external json abi.
         </purpose>
     </description>
 
@@ -16,9 +12,8 @@
             <group></group>
         </groups>
         <modes inherit="true">
-            <mode>obscuro</mode>
-            <mode>ropsten</mode>
-            <mode>ganache</mode>
+            <mode>obscuro_l1</mode>
+            <mode>obscuro_l1_local</mode>
         </modes>
     </classification>
 
