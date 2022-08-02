@@ -21,6 +21,8 @@ class PySysTest(BaseTest):
 
         # construct contract instance
         self.log.info('Construct an instance using the contract address and abi')
+        self.log.info('Contract address is %s' % tx_receipt.contractAddress)
+
         contract = web3_1.eth.contract(address=tx_receipt.contractAddress, abi=erc20.abi)
 
         # check initial allocations
