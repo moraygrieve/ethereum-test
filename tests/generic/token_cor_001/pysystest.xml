@@ -2,8 +2,11 @@
 <pysystest type="auto">
 
     <description>
-        <title>Obscuro L1 - ERC20 ETH transfer and transfer from</title>
+        <title>TokenOBX - transfer, approve and transfer from using three accounts</title>
         <purpose><![CDATA[]]>
+            Uses three accounts; account1 deploys the OBX ERC20 contract and therefore owns all initial tokens.
+            Account1 transfers some tokens to account2. Account1 then approves account2 for a certain amount of
+            tokens, and account2 then transfers from that approval amount to account3.
         </purpose>
     </description>
 
@@ -12,8 +15,9 @@
             <group></group>
         </groups>
         <modes inherit="true">
-            <mode>obscuro_l1</mode>
-            <mode>obscuro_l1_local</mode>
+            <mode>obscuro</mode>
+            <mode>ropsten</mode>
+            <mode>ganache</mode>
         </modes>
     </classification>
 

@@ -2,16 +2,16 @@ import json, os
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
-from ethsys.networks.obscuro import ObscuroL1Local
+from ethsys.networks.factory import NetworkFactory
 
 
 class PySysTest(BaseTest):
 
     def execute(self):
         # connect to the network
-        network = ObscuroL1Local
+        network = NetworkFactory.get_network(self)
         web3_2, account2 = network.connect_account2()
-        web3_1, account1 = network.connect(Properties().funded_deployment_account_pk(), network.HOST, network.PORT)
+        web3_1, account1 = network.connect_account1()
         self.log.info('Using account with address %s' % account1.address)
 
         # grab a handle to the OBX ERC20 contract on the obscuro layer 1

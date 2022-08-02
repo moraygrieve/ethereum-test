@@ -2,10 +2,10 @@
 <pysystest type="auto">
 
     <description>
-        <title>Guesser - constructor, deploy contract and guess the value</title>
+        <title>No state changing, deploy contract and guess the value</title>
         <purpose><![CDATA[
 A simple smart contract which hard codes a value which it is necessary to guess. Test is setup to run
-against Obscuro, Ropsten or Ganache. There is a constructor and destructor in the contract.
+against Obscuro, Ropsten or Ganache. There is no constructor or destructor in the contract.
 ]]>
         </purpose>
     </description>

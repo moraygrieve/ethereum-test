@@ -2,9 +2,8 @@
 <pysystest type="auto">
 
     <description>
-        <title></title>
-        <purpose><![CDATA[
-]]>
+        <title>Obscuro L1 - ERC20 ETH transfer from owner to another account</title>
+        <purpose><![CDATA[]]>
         </purpose>
     </description>
 
@@ -13,11 +12,13 @@
             <group></group>
         </groups>
         <modes inherit="true">
+            <mode>obscuro_l1</mode>
+            <mode>obscuro_l1_local</mode>
         </modes>
     </classification>
 
     <data>
-        <class name="PySysTest" module="run"/>
+        <class name="PySysTest" module="run"/>cd <te></te>
     </data>
 
     <traceability>

@@ -11,10 +11,18 @@ class ObscuroL1(GethNetwork):
     HOST = 'testnet-gethnetwork.uksouth.azurecontainer.io'
     PORT = 8025
 
+    @classmethod
+    def connect_account1(cls):
+        return cls.connect(Properties().funded_deployment_account_pk(), cls.HOST, cls.PORT)
+
 
 class ObscuroL1Local(GethNetwork):
     HOST = '127.0.0.1'
     PORT = 8025
+
+    @classmethod
+    def connect_account1(cls):
+        return cls.connect(Properties().funded_deployment_account_pk(), cls.HOST, cls.PORT)
 
 
 class ObscuroNetwork(DefaultNetwork):
