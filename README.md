@@ -20,6 +20,7 @@ The top level structure of the project is as below;
 ├── src                  # The project source root for test execution 
 │    └── python          # Python source code as extension to pysys for ethereum interaction
 ├── tests                # The project test root for all tests
+│    ├── external        # Tests against contract supplied externally 
 │    ├── generic         # Network agnostic tests 
 │    └── obscuro         # Obscuro specific tests 
 └── utils                # The project utils root for utilities used by the tests
