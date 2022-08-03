@@ -24,9 +24,10 @@ class PySysTest(BaseTest):
 
         # deploy the guessing game contract
         self.log.info('Deploy the guessing contract')
-        guessing_contract = guesser.construct_guesser(100, erc20_address)
+        guessing_contract = guesser.construct_guesser(10, erc20_address)
         tx_receipt = network.transact(self, web3_1, guessing_contract, account_1, guesser.GAS)
         guessing_address = tx_receipt.contractAddress
+        self.log.info(guesser.guessing_bytecode)
         guessing_contract = web3_1.eth.contract(address=guessing_address, abi=guesser.guessing_abi)
 
         # allocate funds to account2 and check their balance
@@ -34,11 +35,22 @@ class PySysTest(BaseTest):
         self.assertTrue(erc20_contract.functions.balanceOf(account_2.address).call() == 2000)
 
         # account2 approves account1 30 tokens
-        network.transact(self, web3_2, erc20_contract.functions.approve(guessing_address, 30), account_2, guesser.GAS)
-        self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 30)
+        network.transact(self, web3_2, erc20_contract.functions.approve(guessing_address, 1), account_2, guesser.GAS)
+        self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 1)
         self.assertTrue(guessing_contract.functions.getBalance().call() == 0)
 
         # make a guess:wq
         network.transact(self, web3_2, guessing_contract.functions.attempt(35), account_2, guesser.GAS)
-        self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 29)
+        self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 0)
         self.assertTrue(guessing_contract.functions.getBalance().call() == 1)
+
+        for i in range(1,10):
+            self.log.info('Guessing number as %d' % i)
+            network.transact(self, web3_2, erc20_contract.functions.approve(guessing_address, 1), account_2, guesser.GAS)
+            network.transact(self, web3_2, guessing_contract.functions.attempt(i), account_2, guesser.GAS)
+            balance = guessing_contract.functions.getBalance().call()
+            self.log.info('Games balance is %d' % guessing_contract.functions.getBalance().call())
+            if balance == 0:
+                self.log.info('Won the prize with a guess of %d' % i)
+                self.assertTrue(erc20_contract.functions.balanceOf(account_2.address).call() == 2000)
+                break

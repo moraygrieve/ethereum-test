@@ -12,3 +12,5 @@ __pycache__/
 
 # ignore any artifacts used
 artifacts/wallet_extension
+artifacts/*.log
+

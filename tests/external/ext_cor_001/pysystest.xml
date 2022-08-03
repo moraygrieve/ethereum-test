@@ -4,6 +4,8 @@
     <description>
         <title>James Carlyle: Pay to guess game</title>
         <purpose><![CDATA[
+        Deploys the entire game include the ERC20 contract, transfers some tokens to a game player, then the player
+        approves one token at a time to take a guess at winning the prize.
 ]]>
         </purpose>
     </description>
