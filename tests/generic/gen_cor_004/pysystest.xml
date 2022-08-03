@@ -2,11 +2,10 @@
 <pysystest type="auto">
 
     <description>
-        <title>No state changing, deploy contract and guess the value</title>
-        <purpose><![CDATA[
-A simple smart contract which hard codes a value which it is necessary to guess. Test is setup to run
-against Obscuro, Ropsten or Ganache. There is no constructor or destructor in the contract.
-]]>
+        <title>Storage: deploy contract and set value (includes events)</title>
+        <purpose><![CDATA[]]>
+Deploy the storage contract, call to get the current value, store a new value as a transaction, extract the
+value from the transaction log, and call again.
         </purpose>
     </description>
 

@@ -2,7 +2,7 @@
 <pysystest type="auto">
 
     <description>
-        <title>Obscuro L1 - ERC20 ETH transfer from owner to another account</title>
+        <title>Layer1: ERC20 OBX transfer from owner to another account</title>
         <purpose><![CDATA[]]>
         </purpose>
     </description>
@@ -12,7 +12,6 @@
             <group></group>
         </groups>
         <modes inherit="true">
-            <mode>obscuro_l1</mode>
             <mode>obscuro_l1_local</mode>
         </modes>
     </classification>

@@ -2,11 +2,11 @@
 <pysystest type="auto">
 
     <description>
-        <title>TokenOBX - transfer, approve and transfer from using three accounts</title>
-        <purpose><![CDATA[]]>
-            Uses three accounts; account1 deploys the OBX ERC20 contract and therefore owns all initial tokens.
-            Account1 transfers some tokens to account2. Account1 then approves account2 for a certain amount of
-            tokens, and account2 then transfers from that approval amount to account3.
+        <title>Guesser: no state changing, deploy contract and guess the value</title>
+        <purpose><![CDATA[
+A simple smart contract which hard codes a value which it is necessary to guess. Test is setup to run
+against Obscuro, Ropsten or Ganache. There is no constructor or destructor in the contract.
+]]>
         </purpose>
     </description>
 
