@@ -12,6 +12,7 @@
             <group></group>
         </groups>
         <modes inherit="true">
+            <mode>obscuro_l1</mode>
             <mode>obscuro_l1_local</mode>
         </modes>
     </classification>

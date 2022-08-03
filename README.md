@@ -1,11 +1,12 @@
 Ethereum Test Framework (multiple networks)
 -------------------------------------------
 Project repo for building and running solidity smart contracts on Ethereum against a variety of networks e.g. 
-[ganache](https://trufflesuite.com/ganache/), [ropsten via infura](https://infura.io/) and [obscuro](https://obscu.ro/). 
-The repo uses the [pysys](https://pysys-test.github.io/pysys-test/) test framework to manage all tests and their 
-execution. All tests are fully system level using [web3.py](https://web3py.readthedocs.io/en/stable/) to interact with 
-the networks which are managed outside the scope of the tests. Note the project is currently under continuous active 
-development and further information on running the tests will be added to this readme over time. 
+[ganache](https://trufflesuite.com/ganache/), [ropsten via infura](https://infura.io/), 
+[geth](https://geth.ethereum.org/docs/getting-started), and  [obscuro](https://obscu.ro/). The repo uses the 
+[pysys](https://pysys-test.github.io/pysys-test/) test framework to manage all tests and their execution. All tests are 
+fully system level using [web3.py](https://web3py.readthedocs.io/en/stable/) to interact with the networks which are 
+managed outside the scope of the tests. Note the project is currently under continuous active development and further 
+information on running the tests will be added to this readme over time. 
 
 
 Repository Structure
@@ -14,6 +15,7 @@ The top level structure of the project is as below;
 
 ```
 ├── README.md            # Readme 
+├── .user.properties     # Template properties file detailing connection and keys required for running 
 ├── pysysproject.xml     # The pysys project file
 ├── src                  # The project source root for test execution 
 │    └── python          # Python source code as extension to pysys for ethereum interaction
@@ -24,36 +26,34 @@ The top level structure of the project is as below;
     └── contracts        # A library of smart contracts 
 ```
 
+The [.user.properties](./.user.properties) template file should be copied and renamed to the username of the account 
+executing the tests e.g. `.fredjones.properties`. As this file will contain private keys of accounts used for testing 
+it should never be committed back into the main repo (the [.gitignore](./.gitignore) should prevent this). See the
+[.user.properties](./.user.properties) for more information on the properties that need to be setup. 
 
-Dependencies 
--------------
 
-The following python dependencies and their installation is as given below;
+Dependencies
+------------
 
-```bash
-# install python dependencies
-python3 -m pip install web3
-python3 -m pip install pysys==1.6.1
-python3 -m pip install py-solc-x
-```
+Setup 
+-----
 
-The following node.js, ethereum and solidity dependencies and their installation is as given below;
+- User properties
 
-```bash
-# install homebrew and node.js
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew update
-brew upgrade
-brew install node
+- Ganache
+ 
+- Ropsten
 
-# install solc (which differs from solcjs and is used by python solcx)
-brew tap ethereum/ethereum
-brew install solidity
+- Obscuro
 
-# install solcjs
-npm install -g solc@0.8.15
-$ solcjs --bin -o output contracts/Faucet.sol
-```
+
+Running the tests
+-----------------
+
+
+
+
+
 
 
 

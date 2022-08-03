@@ -7,6 +7,7 @@ __pycache__/
 **/Output/*
 
 # property files we dont want commited to SCCS
+!.user.properties
 *.properties
 
 # ignore any artifacts used
