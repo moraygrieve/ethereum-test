@@ -11,15 +11,15 @@ class Properties:
 
     # default accounts used generally
     def account1pk(self):
-        infura = self.config['default']
+        infura = self.config['all']
         return infura.get('Account1PK', '')
 
     def account2pk(self):
-        infura = self.config['default']
+        infura = self.config['all']
         return infura.get('Account2PK', '')
 
     def account3pk(self):
-        infura = self.config['default']
+        infura = self.config['all']
         return infura.get('Account3PK', '')
 
     # obscuro specific properties
