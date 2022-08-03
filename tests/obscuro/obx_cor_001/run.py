@@ -16,7 +16,7 @@ class PySysTest(BaseTest):
 
         # grab a handle to the OBX ERC20 contract on the obscuro layer 1
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
-            contract = web3_2.eth.contract(address=Properties().l1_obx_token_address(), abi=json.load(f))
+            contract = web3_2.eth.contract(address=Properties().l1_obx_token_address(network.PROPS_KEY), abi=json.load(f))
 
         # check initial allocations
         balance1_0 = contract.functions.balanceOf(account1.address).call()

@@ -23,31 +23,31 @@ class Properties:
         return infura.get('Account3PK', '')
 
     # obscuro specific properties
-    def management_bridge_address(self):
-        obscuro = self.config['obscuro']
-        return obscuro.get('ManagementBridgeAddress', '')
-
-    def funded_deployment_account_pk(self):
-        obscuro = self.config['obscuro']
+    def funded_deployment_account_pk(self, key):
+        obscuro = self.config[key]
         return obscuro.get('FundedDeploymentAccountPK', '')
 
-    def l1_obx_token_address(self):
-        obscuro = self.config['obscuro']
+    def management_bridge_address(self, key):
+        obscuro = self.config[key]
+        return obscuro.get('ManagementBridgeAddress', '')
+
+    def l1_obx_token_address(self, key):
+        obscuro = self.config[key]
         return obscuro.get('TokenOBXContractAddressL1', '')
 
-    def l2_obx_token_address(self):
-        obscuro = self.config['obscuro']
+    def l2_obx_token_address(self, key):
+        obscuro = self.config[key]
         return obscuro.get('TokenOBXContractAddressL2', '')
 
-    def l1_eth_token_address(self):
-        obscuro = self.config['obscuro']
+    def l1_eth_token_address(self, key):
+        obscuro = self.config[key]
         return obscuro.get('TokenETHContractAddressL1', '')
 
-    def l2_eth_token_address(self):
-        obscuro = self.config['obscuro']
+    def l2_eth_token_address(self, key):
+        obscuro = self.config[key]
         return obscuro.get('TokenETHContractAddressL2', '')
 
     # infura related
     def infuraProjectID(self):
-        infura = self.config['infura']
+        infura = self.config['ropsten']
         return infura.get('ProjectID', '')

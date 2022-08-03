@@ -20,8 +20,8 @@ The top level structure of the project is as below;
 ├── src                  # The project source root for test execution 
 │    └── python          # Python source code as extension to pysys for ethereum interaction
 ├── tests                # The project test root for all tests
-│    ├── api             # Network agnostic tests against the RPC API
-│    └── contract        # Network agnostic tests against a library of smart contracts
+│    ├── generic         # Network agnostic tests 
+│    └── obscuro         # Obscuro specific tests 
 └── utils                # The project utils root for utilities used by the tests
     └── contracts        # A library of smart contracts 
 ```

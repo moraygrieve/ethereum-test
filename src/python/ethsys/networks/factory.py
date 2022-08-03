@@ -1,7 +1,7 @@
 from ethsys.networks.default import DefaultNetwork
-from ethsys.networks.obscuro import ObscuroNetwork
-from ethsys.networks.ropsten import RopstenNetwork
 from ethsys.networks.ganache import GanacheNetwork
+from ethsys.networks.ropsten import RopstenNetwork
+from ethsys.networks.obscuro import ObscuroNetwork
 from ethsys.networks.obscuro import ObscuroL1
 from ethsys.networks.obscuro import ObscuroL1Local
 

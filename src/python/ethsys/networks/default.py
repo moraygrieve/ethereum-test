@@ -4,7 +4,6 @@ from ethsys.utils.properties import Properties
 
 
 class DefaultNetwork:
-
     HOST = None
     PORT = None
 

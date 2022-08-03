@@ -10,19 +10,21 @@ from eth_account.messages import encode_defunct
 class ObscuroL1(GethNetwork):
     HOST = 'testnet-gethnetwork.uksouth.azurecontainer.io'
     PORT = 8025
+    PROPS_KEY = 'obscuro'
 
     @classmethod
     def connect_account1(cls):
-        return cls.connect(Properties().funded_deployment_account_pk(), cls.HOST, cls.PORT)
+        return cls.connect(Properties().funded_deployment_account_pk(cls.PROPS_KEY), cls.HOST, cls.PORT)
 
 
 class ObscuroL1Local(GethNetwork):
     HOST = '127.0.0.1'
     PORT = 8025
+    PROPS_KEY = 'obscuro.local'
 
     @classmethod
     def connect_account1(cls):
-        return cls.connect(Properties().funded_deployment_account_pk(), cls.HOST, cls.PORT)
+        return cls.connect(Properties().funded_deployment_account_pk(cls.PROPS_KEY), cls.HOST, cls.PORT)
 
 
 class ObscuroNetwork(DefaultNetwork):
@@ -30,6 +32,7 @@ class ObscuroNetwork(DefaultNetwork):
     ACCOUNT1_PORT = 3000
     ACCOUNT2_PORT = 4000
     ACCOUNT3_PORT = 5000
+    PROPS_KEY = 'obscuro'
 
     @classmethod
     def chain_id(cls):
