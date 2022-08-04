@@ -2,8 +2,10 @@
 <pysystest type="auto">
 
     <description>
-        <title>Layer1: ERC20 OBX transfer from owner to another account</title>
+        <title>Obscuro: ERC20 OBX transfer from deployment owner to bridge account</title>
         <purpose><![CDATA[]]>
+            Checks that the deployment owner (pre-funded) can transfer tokens to the bridge account on the L1 OBX
+            token, and that this is then reflected across into the L2 OBX token. 
         </purpose>
     </description>
 
