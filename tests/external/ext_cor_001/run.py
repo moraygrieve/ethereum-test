@@ -1,3 +1,4 @@
+import json
 from pysys.basetest import BaseTest
 from ethsys.external.contracts.guesser.guesser import GuessingGame
 from ethsys.networks.factory import NetworkFactory
@@ -28,6 +29,7 @@ class PySysTest(BaseTest):
         tx_receipt = network.transact(self, web3_1, guessing_contract, account_1, guesser.GAS)
         guessing_address = tx_receipt.contractAddress
         self.log.info(guesser.guessing_bytecode)
+        self.log.info(json.dumps(guesser.guessing_abi, indent=2))
         guessing_contract = web3_1.eth.contract(address=guessing_address, abi=guesser.guessing_abi)
 
         # allocate funds to account2 and check their balance
@@ -39,7 +41,7 @@ class PySysTest(BaseTest):
         self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 1)
         self.assertTrue(guessing_contract.functions.getBalance().call() == 0)
 
-        # make a guess:wq
+        # make a guess
         network.transact(self, web3_2, guessing_contract.functions.attempt(35), account_2, guesser.GAS)
         self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 0)
         self.assertTrue(guessing_contract.functions.getBalance().call() == 1)

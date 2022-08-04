@@ -31,6 +31,10 @@ class Properties:
         obscuro = self.config[key]
         return obscuro.get('ManagementBridgeAddress', '')
 
+    def guessing_game_address(self, key):
+        obscuro = self.config[key]
+        return obscuro.get('GuessingGameAddress', '')
+
     def l1_obx_token_address(self, key):
         obscuro = self.config[key]
         return obscuro.get('TokenOBXContractAddressL1', '')
