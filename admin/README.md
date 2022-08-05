@@ -2,8 +2,8 @@ Admin controls on Obscuro TestNet
 =================================
 This directory contains utilities to perform admin operations on the Obscuro Testnet. This is to 
 
-- allocate funds into the layer2 into the OBX ERC20 contract for use by the number guessing game
-- transfer funds into a user who wished to play the number guessing game
+- allocate funds into the layer 2 into the OBX ERC20 contract for use by the number guessing game
+- transfer funds into a user who wishes to play the number guessing game
 
 Running the utilities requires Python3 to be installed, along with the following dependencies;
 
@@ -25,7 +25,7 @@ wallet_extension -nodeHost testnet.obscu.ro -nodePortHTTP 13000 -nodePortWS 1300
 
 Funding the faucet
 ------------------
-`fund_faucet` provides the ability to ensure the tokens in the pre-funded deployment account (the owner of the OBC ERC20
+`fund_faucet` provides the ability to ensure the tokens in the pre-funded deployment account (the owner of the OBX ERC20
 token contract) in layer 2 do not fall below a certain threshold (currently set at 1000). When the token amount falls 
 below this amount it is increased back up to 1000000. To run a check and perform an allocation if required used;
 
@@ -49,7 +49,7 @@ pysys.py run fund_user
 ```
 
 At the moment users managed are defined in the `fund_user/run.py` script, as a dictionary of logical user name to 
-account address. To add a new used edit this file to add in the new user details to the USERS dictionary; 
+account address. To add a new user edit this file to add in the details to the USERS dictionary; 
 
 ```python
     USERS = {
