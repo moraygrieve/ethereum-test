@@ -4,6 +4,10 @@
     <description>
         <title>Allocate OBC tokens from the deployment account to the bridge account (so L1 to L2)</title>
         <purpose><![CDATA[
+        Uses the pre-funded deployment account as the owner of the OBX ERC20 tokens to transfer tokens to the
+        bridge account in L1. This will then be synced across to the L2 OBX ERC20 token contract and made available to
+        the deployment account there. In effect the deployment account is being used as a faucet of tokens to be
+        available to users of Obscuro. The transfer of tokens will only be done if we are below a threshold limit in L2.
 ]]>
         </purpose>
     </description>

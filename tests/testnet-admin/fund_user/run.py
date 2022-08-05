@@ -21,8 +21,13 @@ class PySysTest(BaseTest):
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
             obx_cntr = web3_l2.eth.contract(address=Properties().l2_obx_token_address(l2.PROPS_KEY), abi=json.load(f))
 
+        # add in our test users
+        users = self.USERS
+        users['TEST_ACC2'] = web3_l2.eth.account.privateKeyToAccount(Properties().account2pk()).address
+        users['TEST_ACC3'] = web3_l2.eth.account.privateKeyToAccount(Properties().account3pk()).address
+
         # run for users
-        for user in self.USERS.keys():
+        for user in users.keys():
             user_address = self.USERS[user]
             self.log.info('Running for user %s [%s]' % (user, self.USERS[user]))
 
