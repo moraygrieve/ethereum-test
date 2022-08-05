@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pysystest type="auto">
-  
-  <description> 
-	<title></title>    
-	<purpose><![CDATA[
+
+    <description>
+        <title>Play the number guessing game as a specific game user</title>
+        <purpose><![CDATA[
+        Check that it is possible to play the deployed number guessing game as a dedicated user.
 ]]>
-	</purpose>
-  </description>
+        </purpose>
+    </description>
 
-  <!-- uncomment this to skip the test:  
-  <skipped reason=""/> 
-  -->
-  
-  <classification>
-	<groups inherit="true">
-	  <group></group>
-	</groups>
-	<modes inherit="true">
-	</modes>
-  </classification>
+    <classification>
+        <groups inherit="true">
+            <group></group>
+        </groups>
+        <modes inherit="true">
+        </modes>
+    </classification>
 
-  <data>
-	<class name="PySysTest" module="run"/>
-  </data>
-  
-  <traceability>
-	<requirements>
-	  <requirement id=""/>     
-	</requirements>
-  </traceability>
+    <data>
+        <class name="PySysTest" module="run"/>
+    </data>
+
+    <traceability>
+        <requirements>
+            <requirement id=""/>
+        </requirements>
+    </traceability>
 </pysystest>

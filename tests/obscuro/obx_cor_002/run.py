@@ -1,4 +1,4 @@
-import json, os
+import json, os, time
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
@@ -15,7 +15,8 @@ class PySysTest(BaseTest):
 
         # get the connections for the deployment (faucet) and game user
         _, depl_account = l2.connect(Properties().funded_deployment_account_pk(l2.PROPS_KEY), l2.HOST, l2.ACCOUNT1_PORT)
-        web3_user, user_account = l2.connect_account2()
+        web3_user, game_user = l2.connect(Properties().gameuserpk(), l2.HOST, l2.ACCOUNT1_PORT)
+        self.log.info('Game user account is %s' % game_user.address)
 
         # the user needs to get the token and game contracts to interact with them
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
@@ -24,14 +25,15 @@ class PySysTest(BaseTest):
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'guessing_game.abi')) as f:
             game_contract = web3_user.eth.contract(address=game_add, abi=json.load(f))
 
-        self.log_balances(obxt_contract, game_contract, depl_account.address, user_account.address, game_add)
+        self.log_balances(obxt_contract, game_contract, depl_account.address, game_user.address, game_add)
 
         # the user starts making guesses (first needs to approve the game to take tokens)
-        for i in range(10,15):
+        for i in range(40, 50):
             self.log.info('Guessing number as %d' % i)
-            l2.transact(self, web3_user, obxt_contract.functions.approve(game_add, 1), user_account, 720000 * 4)
-            l2.transact(self, web3_user, game_contract.functions.attempt(i), user_account, 720000 * 4)
-            prize = self.log_balances(obxt_contract, game_contract, depl_account.address, user_account.address, game_add)
+            l2.transact(self, web3_user, obxt_contract.functions.approve(game_add, 1), game_user, 720000 * 4)
+            l2.transact(self, web3_user, game_contract.functions.attempt(i), game_user, 720000 * 4)
+            prize = self.log_balances(obxt_contract, game_contract, depl_account.address, game_user.address,
+                                      game_add)
             if prize == 0:
                 self.log.info('Won the prize with a guess of %d' % i)
                 break
