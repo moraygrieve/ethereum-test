@@ -28,15 +28,13 @@ class PySysTest(BaseTest):
         guessing_contract = guesser.construct_guesser(10, erc20_address)
         tx_receipt = network.transact(self, web3_1, guessing_contract, account_1, guesser.GAS)
         guessing_address = tx_receipt.contractAddress
-        self.log.info(guesser.guessing_bytecode)
-        self.log.info(json.dumps(guesser.guessing_abi, indent=2))
         guessing_contract = web3_1.eth.contract(address=guessing_address, abi=guesser.guessing_abi)
 
         # allocate funds to account2 and check their balance
         network.transact(self, web3_1, erc20_contract.functions.transfer(account_2.address, 2000), account_1, guesser.GAS)
         self.assertTrue(erc20_contract.functions.balanceOf(account_2.address).call() == 2000)
 
-        # account2 approves account1 30 tokens
+        # account2 approves account1 1 token
         network.transact(self, web3_2, erc20_contract.functions.approve(guessing_address, 1), account_2, guesser.GAS)
         self.assertTrue(erc20_contract.functions.allowance(account_2.address, guessing_address).call() == 1)
         self.assertTrue(guessing_contract.functions.getBalance().call() == 0)
