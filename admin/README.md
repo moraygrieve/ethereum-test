@@ -10,8 +10,10 @@ contains properties used by this repository. The properties required to run agai
 in the file so no changes should be required. Running the utilities requires Python3 to be installed, along with the 
 following dependencies;
 
-```
-
+```bash
+# install python dependencies
+python3 -m pip install web3
+python3 -m pip install pysys==1.6.1
 ```
 
 Funding the faucet
@@ -45,13 +47,10 @@ account address. To add a new used edit this file to add in the new user details
 ```python
     USERS = {
         'MATT':'0x686Ad719004590e98F182feA3516d443780C64a1',
-        'GAVIN_OLD':'0x6D0c4F15c048Efef3656F77e393C8cc149aE9262',
         'GAVIN':'0x85E1Cc949Bca27912e3e951ad1F68afD1cc4aB15',
         'MORAY':'0x7719A2b2BeC6a98508975C168A565FffCF9Dc266'
     }
     AMOUNT = 50
 ```
 
-When adding in a new user, the updates `run.py` script should be added and committed back into this repository for 
-auditing purposes. 
 

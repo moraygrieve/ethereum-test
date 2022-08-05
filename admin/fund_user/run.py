@@ -8,7 +8,6 @@ from ethsys.networks.obscuro import ObscuroNetwork
 class PySysTest(BaseTest):
     USERS = {
         'MATT':'0x686Ad719004590e98F182feA3516d443780C64a1',
-        'GAVIN_OLD':'0x6D0c4F15c048Efef3656F77e393C8cc149aE9262',
         'GAVIN':'0x85E1Cc949Bca27912e3e951ad1F68afD1cc4aB15',
         'MORAY':'0x7719A2b2BeC6a98508975C168A565FffCF9Dc266'
     }
