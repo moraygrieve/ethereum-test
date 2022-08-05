@@ -2,7 +2,7 @@
 <pysystest type="auto">
 
     <description>
-        <title>Allocate OBC tokens from the deployment account to the bridge account (so L1 to L2)</title>
+        <title>Allocate OBX game funds to registered users</title>
         <purpose><![CDATA[
 ]]>
         </purpose>
