@@ -17,6 +17,8 @@ The top level structure of the project is as below;
 ├── README.md            # Readme 
 ├── .user.properties     # Template properties file detailing connection and keys required for running 
 ├── pysysproject.xml     # The pysys project file
+├── admin                # Used for administering Obscuro testnet 
+├── artifacts            # Artifacts used during test execution (e.g. Obscuro wallet extension)
 ├── src                  # The project source root for test execution 
 │    └── python          # Python source code as extension to pysys for ethereum interaction
 ├── tests                # The project test root for all tests
@@ -32,24 +34,6 @@ executing the tests e.g. `.fredjones.properties`. As this file will contain priv
 it should never be committed back into the main repo (the [.gitignore](./.gitignore) should prevent this). See the
 [.user.properties](./.user.properties) for more information on the properties that need to be setup. 
 
-
-Dependencies
-------------
-
-Setup 
------
-
-- User properties
-
-- Ganache
- 
-- Ropsten
-
-- Obscuro
-
-
-Running the tests
------------------
 
 
 
