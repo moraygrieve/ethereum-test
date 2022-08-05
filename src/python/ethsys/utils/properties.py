@@ -7,7 +7,11 @@ class Properties:
     def __init__(self):
         file = os.path.join(PROJECT.root, '.'+getpass.getuser()+'.properties')
         self.config = configparser.ConfigParser()
-        if os.path.exists(file): self.config.read(filenames=file)
+        if os.path.exists(file):
+            self.config.read(filenames=file)
+        else:
+            file = os.path.join(PROJECT.root, '.user.properties')
+            self.config.read(filenames=file)
 
     # default accounts used generally
     def account1pk(self):

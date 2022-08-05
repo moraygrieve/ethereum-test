@@ -5,10 +5,10 @@ This directory contains utilities to perform admin operations on the Obscuro Tes
 - allocate funds into the layer2 into the OBX ERC20 contract for use by the number guessing game
 - transfer funds into a user who wished to play the number guessing game
 
-To run the admin utilities you must first rename [.user.properties](.users.properties) to your own user account. This 
-contains properties used by this repository. The properties required to run against Obscuro Testnet are pre-populated 
-in the file so no changes should be required. Running the utilities requires Python3 to be installed, along with the 
-following dependencies;
+To run the admin utilities, after cloning this repository, you must rename [.user.properties](.users.properties) to your 
+own user account. The properties required to run against Obscuro Testnet are pre-populated in the file so no changes 
+should be required other than renaming. Running the utilities requires Python3 to be installed, along with the following 
+dependencies;
 
 ```bash
 # install python dependencies
@@ -69,5 +69,6 @@ account address. To add a new used edit this file to add in the new user details
     }
     AMOUNT = 50
 ```
+
 
 
