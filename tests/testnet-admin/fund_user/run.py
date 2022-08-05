@@ -1,4 +1,4 @@
-import json, os
+import json, os, ast
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
@@ -9,9 +9,11 @@ class PySysTest(BaseTest):
     USERS = {
         'MATT':'0x686Ad719004590e98F182feA3516d443780C64a1',
         'GAVIN_OLD':'0x6D0c4F15c048Efef3656F77e393C8cc149aE9262',
-        'GAVIN':'0x85E1Cc949Bca27912e3e951ad1F68afD1cc4aB15'
+        'GAVIN':'0x85E1Cc949Bca27912e3e951ad1F68afD1cc4aB15',
+        'MORAY':'0x7719A2b2BeC6a98508975C168A565FffCF9Dc266'
     }
     AMOUNT = 50
+    DISPLAY_ONLY = False
 
     def execute(self):
         # connect to the L2 network
@@ -34,9 +36,11 @@ class PySysTest(BaseTest):
             # balance before transaction
             user_balance = obx_cntr.functions.balanceOf(user_address).call()
             deploy_balance = obx_cntr.functions.balanceOf(deploy_account.address).call()
-            self.log.info('  L2 balances before transfer')
+            self.log.info('  L2 balances')
             self.log.info('    User balance = %d ' % user_balance)
             self.log.info('    Deploy account balance = %d ' % deploy_balance)
+
+            if self.DISPLAY_ONLY: continue
 
             # transfer funds from the deployment address to the user account
             if user_balance == 0:
@@ -46,9 +50,9 @@ class PySysTest(BaseTest):
                 # balance after transaction
                 user_balance = obx_cntr.functions.balanceOf(user_address).call()
                 deploy_balance = obx_cntr.functions.balanceOf(deploy_account.address).call()
-                self.log.info('  L2 balances after transfer')
+                self.log.info('  L2 balances')
                 self.log.info('    User balance = %d ' % user_balance)
                 self.log.info('    Deploy account balance = %d ' % deploy_balance)
             else:
-                self.log.info('  User has funds so not transferring any more')
+                self.log.info('%s has funds so not transferring any more ' % user)
             self.log.info('  ')

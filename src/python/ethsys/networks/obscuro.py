@@ -62,7 +62,7 @@ class ObscuroNetwork(DefaultNetwork):
         start = time.time()
         tx_receipt = None
         while tx_receipt is None:
-            if (time.time() - start) > 60:
+            if (time.time() - start) > 120:
                 test.log.error('Timed out waiting for transaction receipt ... aborting')
                 test.addOutcome(TIMEDOUT, abortOnError=TRUE)
 

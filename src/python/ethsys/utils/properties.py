@@ -22,6 +22,10 @@ class Properties:
         infura = self.config['all']
         return infura.get('Account3PK', '')
 
+    def gameuserpk(self):
+        infura = self.config['all']
+        return infura.get('GameUserPK', '')
+
     # obscuro specific properties
     def funded_deployment_account_pk(self, key):
         obscuro = self.config[key]
