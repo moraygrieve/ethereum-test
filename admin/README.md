@@ -5,10 +5,7 @@ This directory contains utilities to perform admin operations on the Obscuro Tes
 - allocate funds into the layer2 into the OBX ERC20 contract for use by the number guessing game
 - transfer funds into a user who wished to play the number guessing game
 
-To run the admin utilities, after cloning this repository, you must rename [.user.properties](.users.properties) to your 
-own user account. The properties required to run against Obscuro Testnet are pre-populated in the file so no changes 
-should be required other than renaming. Running the utilities requires Python3 to be installed, along with the following 
-dependencies;
+Running the utilities requires Python3 to be installed, along with the following dependencies;
 
 ```bash
 # install python dependencies
@@ -18,16 +15,9 @@ python3 -m pip install web3
 python3 -m pip install pysys==1.6.1
 ```
 
-To setup the repository follow the below steps;
-
-```
-git clone https://github.com/moraygrieve/ethereum-test.git
-cd ethereum-test
-cp .user.properties .<username>.properties
-```
-
-The wallet_extension should be downloaded from the [releases page](https://github.com/obscuronet/go-obscuro/releases) 
-and started using;
+Note that the `pysys.py` script will be installed into the `~/.local/bin/` directory on linux systems which is not 
+necessarily on your search path. The wallet_extension should be downloaded from the 
+[releases page](https://github.com/obscuronet/go-obscuro/releases) and started using;
 
 ```
 wallet_extension -nodeHost testnet.obscu.ro -nodePortHTTP 13000 -nodePortWS 13001
