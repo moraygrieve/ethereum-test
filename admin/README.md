@@ -26,10 +26,11 @@ cd ethereum-test
 cp .user.properties .<username>.properties
 ```
 
-The wallet_extension should be downloaded from the releases page and started using;
+The wallet_extension should be downloaded from the [releases page](https://github.com/obscuronet/go-obscuro/releases) 
+and started using;
 
 ```
-
+wallet_extension -nodeHost testnet.obscu.ro -nodePortHTTP 13000 -nodePortWS 13001
 ```
 
 Funding the faucet
