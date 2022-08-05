@@ -12,8 +12,24 @@ following dependencies;
 
 ```bash
 # install python dependencies
+sudo apt update
+sudo apt install python3-pip
 python3 -m pip install web3
 python3 -m pip install pysys==1.6.1
+```
+
+To setup the repository follow the below steps;
+
+```
+git clone https://github.com/moraygrieve/ethereum-test.git
+cd ethereum-test
+cp .user.properties .<username>.properties
+```
+
+The wallet_extension should be downloaded from the releases page and started using;
+
+```
+
 ```
 
 Funding the faucet
