@@ -11,6 +11,6 @@ __pycache__/
 !.user.properties
 
 # ignore any artifacts used
-artifacts/wallet_extension
+artifacts/wallet_extension*
 artifacts/*.log
 
