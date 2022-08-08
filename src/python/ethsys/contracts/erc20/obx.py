@@ -24,7 +24,7 @@ class OBXCoin:
         """Compile and construct an instance. """
         file = os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'OBXCoin.sol')
         with open(file, 'r') as fp:
-            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary='/opt/homebrew/bin/solc',
+            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary=PROJECT.solcBin,
                                           base_path=os.path.dirname(file))
             contract_interface = compiled_sol['<stdin>:OBXCoin']
             self.bytecode = contract_interface['bin']

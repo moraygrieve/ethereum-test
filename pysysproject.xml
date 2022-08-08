@@ -8,6 +8,7 @@
     <property osfamily="osfamily"/>
 
     <property name="ganacheBin" value="/opt/homebrew/bin/ganache-cli"/>
+    <property name="solcBin" value="/opt/homebrew/bin/solc"/>
 
     <property name="defaultAbortOnError" value="true"/>
     <property name="defaultIgnoreExitStatus" value="false"/>
