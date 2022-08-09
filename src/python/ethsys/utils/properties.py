@@ -43,13 +43,13 @@ class Properties:
         obscuro = self.config[key]
         return obscuro.get('GuessingGameAddress', '')
 
-    def l1_obx_token_address(self, key):
+    def l1_jam_token_address(self, key):
         obscuro = self.config[key]
-        return obscuro.get('TokenOBXContractAddressL1', '')
+        return obscuro.get('TokenJAMContractAddressL1', '')
 
-    def l2_obx_token_address(self, key):
+    def l2_jam_token_address(self, key):
         obscuro = self.config[key]
-        return obscuro.get('TokenOBXContractAddressL2', '')
+        return obscuro.get('TokenJAMContractAddressL2', '')
 
     def l1_eth_token_address(self, key):
         obscuro = self.config[key]

@@ -8,10 +8,10 @@ from ethsys.networks.obscuro import Obscuro
 class PySysTest(EthereumTest):
 
     def execute(self):
-        # get the game address and the obx token address from the properties
+        # get the game address and the jam token address from the properties
         l2 = Obscuro
         game_add = Properties().guessing_game_address(l2.PROPS_KEY)
-        obxt_add = Properties().l2_obx_token_address(l2.PROPS_KEY)
+        jam_add = Properties().l2_jam_token_address(l2.PROPS_KEY)
 
         self.log.info('Game address is %s' % game_add)
 
@@ -25,19 +25,19 @@ class PySysTest(EthereumTest):
 
         # the user needs to get the token and game contracts to interact with them
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
-            obxt_contract = web3_user.eth.contract(address=obxt_add, abi=json.load(f))
+            jam_contract = web3_user.eth.contract(address=jam_add, abi=json.load(f))
 
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'guesser', 'guessing_game.abi')) as f:
             game_contract = web3_user.eth.contract(address=game_add, abi=json.load(f))
 
-        self.log_balances(obxt_contract, game_contract, depl_account.address, game_user.address, game_add)
+        self.log_balances(jam_contract, game_contract, depl_account.address, game_user.address, game_add)
 
         # the user starts making guesses (first needs to approve the game to take tokens)
         for i in range(40, 50):
             self.log.info('Guessing number as %d' % i)
-            l2.transact(self, web3_user, obxt_contract.functions.approve(game_add, 1), game_user, 720000 * 4)
+            l2.transact(self, web3_user, jam_contract.functions.approve(game_add, 1), game_user, 720000 * 4)
             l2.transact(self, web3_user, game_contract.functions.attempt(i), game_user, 720000 * 4)
-            prize = self.log_balances(obxt_contract, game_contract, depl_account.address, game_user.address,
+            prize = self.log_balances(jam_contract, game_contract, depl_account.address, game_user.address,
                                       game_add)
             if prize == 0:
                 self.log.info('Won the prize with a guess of %d' % i)

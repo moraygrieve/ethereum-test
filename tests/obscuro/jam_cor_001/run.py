@@ -14,7 +14,7 @@ class PySysTest(EthereumTest):
         bridge_address = Properties().management_bridge_address(l1.PROPS_KEY)
         web3_l1, deploy_account = l1.connect_account1()
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
-            contract_l1 = web3_l1.eth.contract(address=Properties().l1_obx_token_address(l1.PROPS_KEY), abi=json.load(f))
+            contract_l1 = web3_l1.eth.contract(address=Properties().l1_jam_token_address(l1.PROPS_KEY), abi=json.load(f))
         deploy_balance_l1_before = contract_l1.functions.balanceOf(deploy_account.address).call()
         bridge_balance_l1_before = contract_l1.functions.balanceOf(bridge_address).call()
         self.log.info('L1 Balances before transfer')
@@ -25,7 +25,7 @@ class PySysTest(EthereumTest):
         l2 = Obscuro
         web3_l2, deploy_account = l2.connect(Properties().funded_deployment_account_pk(l2.PROPS_KEY), l2.HOST, l2.ACCOUNT1_PORT)
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
-            contract_l2 = web3_l2.eth.contract(address=Properties().l2_obx_token_address(l2.PROPS_KEY), abi=json.load(f))
+            contract_l2 = web3_l2.eth.contract(address=Properties().l2_jam_token_address(l2.PROPS_KEY), abi=json.load(f))
         deploy_balance_l2_before = contract_l2.functions.balanceOf(deploy_account.address).call()
         bridge_balance_l2_before = contract_l2.functions.balanceOf(bridge_address).call()
         self.log.info('L2 Balances before transfer')

@@ -21,7 +21,7 @@ class PySysTest(EthereumTest):
         web3_l2, deploy_account = l2.connect(Properties().funded_deployment_account_pk(l2.PROPS_KEY), l2.HOST,
                                              l2.ACCOUNT1_PORT)
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
-            obx_cntr = web3_l2.eth.contract(address=Properties().l2_obx_token_address(l2.PROPS_KEY), abi=json.load(f))
+            jam_cntr = web3_l2.eth.contract(address=Properties().l2_jam_token_address(l2.PROPS_KEY), abi=json.load(f))
 
         # run for users
         for user in self.USERS.keys():
@@ -29,8 +29,8 @@ class PySysTest(EthereumTest):
             self.log.info('Running for user %s [%s]' % (user, self.USERS[user]))
 
             # balance before transaction
-            user_balance = obx_cntr.functions.balanceOf(user_address).call()
-            deploy_balance = obx_cntr.functions.balanceOf(deploy_account.address).call()
+            user_balance = jam_cntr.functions.balanceOf(user_address).call()
+            deploy_balance = jam_cntr.functions.balanceOf(deploy_account.address).call()
             self.log.info('  L2 balances')
             self.log.info('    User balance = %d ' % user_balance)
             self.log.info('    Deploy account balance = %d ' % deploy_balance)
@@ -40,11 +40,11 @@ class PySysTest(EthereumTest):
             # transfer funds from the deployment address to the user account
             if user_balance == 0:
                 self.log.info('User requests funds ... transferring %d' % self.AMOUNT)
-                l2.transact(self, web3_l2, obx_cntr.functions.transfer(user_address, self.AMOUNT), deploy_account, 7200000)
+                l2.transact(self, web3_l2, jam_cntr.functions.transfer(user_address, self.AMOUNT), deploy_account, 7200000)
 
                 # balance after transaction
-                user_balance = obx_cntr.functions.balanceOf(user_address).call()
-                deploy_balance = obx_cntr.functions.balanceOf(deploy_account.address).call()
+                user_balance = jam_cntr.functions.balanceOf(user_address).call()
+                deploy_balance = jam_cntr.functions.balanceOf(deploy_account.address).call()
                 self.log.info('  L2 balances')
                 self.log.info('    User balance = %d ' % user_balance)
                 self.log.info('    Deploy account balance = %d ' % deploy_balance)
