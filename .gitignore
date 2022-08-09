@@ -5,6 +5,7 @@ __pycache__/
 
 # pysys related
 **/Output/*
+.runner
 
 # property files we dont want commited to SCCS
 *.properties

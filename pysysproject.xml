@@ -9,12 +9,13 @@
 
     <property name="solcBin_linux" value="/usr/bin/solc"/>
     <property name="solcBin_darwin" value="/opt/homebrew/bin/solc"/>
+    <property name="ganacheBin" value="/opt/homebrew/bin/ganache-cli"/>
 
     <property name="defaultAbortOnError" value="true"/>
     <property name="defaultIgnoreExitStatus" value="false"/>
     <property name="defaultEnvironsTempDir" value="self.output"/>
     <property name="redirectPrintToLogger" value="false"/>
-    <property name="supportMultipleModesPerRun" value="true"/>
+    <property name="supportMultipleModesPerRun" value="false"/>
 
     <path value="./src/python" relative="true" />
 
@@ -43,5 +44,8 @@
         <formatter classname="BaseLogFormatter" module="pysys.utils.logutils"
                    name="runlog" messagefmt="%(asctime)s %(levelname)-5s %(message)s" datefmt=""/>
     </formatters>
+
+    <runner-plugin classname="ethsys.baserunner.EthereumRunnerPlugin">
+    </runner-plugin>
 
 </pysysproject>

@@ -14,7 +14,6 @@ value from the transaction log, and call again.
             <group></group>
         </groups>
         <modes inherit="true">
-            <mode>obscuro</mode>
             <mode>obscuro.local</mode>
             <mode>ropsten</mode>
             <mode>ganache</mode>
