@@ -1,9 +1,9 @@
-from pysys.basetest import BaseTest
+from ethsys.basetest import EthereumTest
 from ethsys.contracts.guesser.guesser_constructor import GuesserConstructor
 from ethsys.networks.factory import NetworkFactory
 
 
-class PySysTest(BaseTest):
+class PySysTest(EthereumTest):
 
     def execute(self):
         # connect to the network

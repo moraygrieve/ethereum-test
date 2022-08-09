@@ -1,8 +1,8 @@
-from pysys.basetest import BaseTest
+from ethsys.basetest import EthereumTest
 from ethsys.networks.factory import NetworkFactory
 
 
-class PySysTest(BaseTest):
+class PySysTest(EthereumTest):
     def execute(self):
         # connect to the network
         network = NetworkFactory.get_network(self)

@@ -1,11 +1,11 @@
-import json, os, ast
+import json, os
 from pysys.constants import PROJECT
-from pysys.basetest import BaseTest
+from ethsys.basetest import EthereumTest
 from ethsys.utils.properties import Properties
 from ethsys.networks.obscuro import Obscuro
 
 
-class PySysTest(BaseTest):
+class PySysTest(EthereumTest):
     USERS = {
         'MATT':'0x686Ad719004590e98F182feA3516d443780C64a1',
         'GAVIN':'0x85E1Cc949Bca27912e3e951ad1F68afD1cc4aB15',

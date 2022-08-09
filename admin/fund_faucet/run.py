@@ -1,11 +1,11 @@
 import json, os, time
 from pysys.constants import PROJECT
-from pysys.basetest import BaseTest
+from ethsys.basetest import EthereumTest
 from ethsys.utils.properties import Properties
 from ethsys.networks.obscuro import Obscuro, ObscuroL1
 
 
-class PySysTest(BaseTest):
+class PySysTest(EthereumTest):
     AMOUNT = 1000000
     THRESHOLD = 1000
 

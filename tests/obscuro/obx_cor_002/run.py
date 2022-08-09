@@ -1,11 +1,11 @@
-import json, os, time
+import json, os
 from pysys.constants import PROJECT
-from pysys.basetest import BaseTest
+from ethsys.basetest import EthereumTest
 from ethsys.utils.properties import Properties
 from ethsys.networks.obscuro import Obscuro
 
 
-class PySysTest(BaseTest):
+class PySysTest(EthereumTest):
 
     def execute(self):
         # get the game address and the obx token address from the properties
