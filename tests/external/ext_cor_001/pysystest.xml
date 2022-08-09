@@ -16,6 +16,7 @@
         </groups>
         <modes inherit="true">
             <mode>obscuro</mode>
+            <mode>obscuro.local</mode>
             <mode>ropsten</mode>
             <mode>ganache</mode>
         </modes>

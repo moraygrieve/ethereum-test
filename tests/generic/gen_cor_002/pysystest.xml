@@ -16,6 +16,7 @@ against Obscuro, Ropsten or Ganache. There is no constructor or destructor in th
         </groups>
         <modes inherit="true">
             <mode>obscuro</mode>
+            <mode>obscuro.local</mode>
             <mode>ropsten</mode>
             <mode>ganache</mode>
         </modes>
