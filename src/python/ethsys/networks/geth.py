@@ -1,9 +1,10 @@
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
-from ethsys.networks.default import DefaultNetwork
+from ethsys.networks.default import Default
 
 
-class GethNetwork(DefaultNetwork):
+class Geth(Default):
+    """A Geth node giving access to the underlying network."""
     HOST = '127.0.0.1'
     PORT = 8545
 

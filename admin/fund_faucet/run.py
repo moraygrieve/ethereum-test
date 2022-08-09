@@ -2,7 +2,7 @@ import json, os, time
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
-from ethsys.networks.obscuro import ObscuroNetwork, ObscuroL1
+from ethsys.networks.obscuro import Obscuro, ObscuroL1
 
 
 class PySysTest(BaseTest):
@@ -15,6 +15,10 @@ class PySysTest(BaseTest):
         bridge_address = Properties().management_bridge_address(l1.PROPS_KEY)
         deployment_pk = Properties().funded_deployment_account_pk(l1.PROPS_KEY)
         web3_l1, deploy_account_l1 = l1.connect(deployment_pk, l1.HOST, l1.PORT)
+        self.log.info('L1 connection details')
+        self.log.info('  Bridge address = %s' % bridge_address)
+        self.log.info('  Deployment PK  = %s' % deployment_pk)
+        self.log.info('  Deployment ETH  = %d' % l1.get_balance(web3_l1, deploy_account_l1.address))
 
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:
             obx_cntr_l1 = web3_l1.eth.contract(address=Properties().l1_obx_token_address(l1.PROPS_KEY), abi=json.load(f))
@@ -26,7 +30,7 @@ class PySysTest(BaseTest):
         self.log.info('  Bridge balance = %d ' % bridge_balance_l1)
 
         # connect to the L2 network
-        l2 = ObscuroNetwork
+        l2 = Obscuro
         deployment_pk = Properties().funded_deployment_account_pk(l2.PROPS_KEY)
         web3_l2, deploy_account = l2.connect(deployment_pk, l2.HOST, l2.ACCOUNT1_PORT)
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:

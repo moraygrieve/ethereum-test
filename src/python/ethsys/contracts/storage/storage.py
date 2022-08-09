@@ -1,5 +1,6 @@
 from solcx import compile_source
 from pysys.constants import *
+from ethsys.utils.solidity import Solidity
 
 
 class Storage:
@@ -26,7 +27,7 @@ class Storage:
         """Compile and construct an instance. """
         file = os.path.join(PROJECT.root, 'utils', 'contracts', 'storage', 'Storage.sol')
         with open(file, 'r') as fp:
-            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary=PROJECT.solcBin)
+            compiled_sol = compile_source(source=fp.read(), output_values=['abi', 'bin'], solc_binary=Solidity.get_compiler())
             contract_id, contract_interface = compiled_sol.popitem()
             self.bytecode = contract_interface['bin']
             self.abi = contract_interface['abi']

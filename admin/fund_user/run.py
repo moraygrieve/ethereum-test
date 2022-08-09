@@ -2,7 +2,7 @@ import json, os, ast
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
-from ethsys.networks.obscuro import ObscuroNetwork
+from ethsys.networks.obscuro import Obscuro
 
 
 class PySysTest(BaseTest):
@@ -17,7 +17,7 @@ class PySysTest(BaseTest):
 
     def execute(self):
         # connect to the L2 network
-        l2 = ObscuroNetwork
+        l2 = Obscuro
         web3_l2, deploy_account = l2.connect(Properties().funded_deployment_account_pk(l2.PROPS_KEY), l2.HOST,
                                              l2.ACCOUNT1_PORT)
         with open(os.path.join(PROJECT.root, 'utils', 'contracts', 'erc20', 'erc20.json')) as f:

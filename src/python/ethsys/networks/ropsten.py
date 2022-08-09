@@ -1,9 +1,10 @@
 from web3 import Web3
 from ethsys.utils.properties import Properties
-from ethsys.networks.default import DefaultNetwork
+from ethsys.networks.default import Default
 
 
-class RopstenNetwork(DefaultNetwork):
+class Ropsten(Default):
+    """A Ropsten node giving access to the underlying network."""
     HOST = 'ropsten.infura.io/v3'
     PORT = None
 

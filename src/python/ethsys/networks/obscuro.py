@@ -1,13 +1,13 @@
 import requests, time, json
 from web3 import Web3
 from pysys.constants import *
-from ethsys.networks.default import DefaultNetwork
+from ethsys.networks.default import Default
 from ethsys.utils.properties import Properties
-from ethsys.networks.geth import GethNetwork
+from ethsys.networks.geth import Geth
 from eth_account.messages import encode_defunct
 
 
-class ObscuroL1(GethNetwork):
+class ObscuroL1(Geth):
     HOST = 'testnet-gethnetwork.uksouth.azurecontainer.io'
     PORT = 8025
     PROPS_KEY = 'obscuro'
@@ -17,7 +17,7 @@ class ObscuroL1(GethNetwork):
         return cls.connect(Properties().funded_deployment_account_pk(cls.PROPS_KEY), cls.HOST, cls.PORT)
 
 
-class ObscuroL1Local(GethNetwork):
+class ObscuroL1Local(Geth):
     HOST = '127.0.0.1'
     PORT = 8025
     PROPS_KEY = 'obscuro.local'
@@ -27,7 +27,8 @@ class ObscuroL1Local(GethNetwork):
         return cls.connect(Properties().funded_deployment_account_pk(cls.PROPS_KEY), cls.HOST, cls.PORT)
 
 
-class ObscuroNetwork(DefaultNetwork):
+class Obscuro(Default):
+    """The Obscuro wallet extension giving access to the underlying network."""
     HOST = '127.0.0.1'
     ACCOUNT1_PORT = 3000
     ACCOUNT2_PORT = 4000

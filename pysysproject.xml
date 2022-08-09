@@ -7,7 +7,8 @@
     <property environment="env"/>
     <property osfamily="osfamily"/>
 
-    <property name="solcBin" value="/usr/bin/solc"/>
+    <property name="solcBin_linux" value="/usr/bin/solc"/>
+    <property name="solcBin_darwin" value="/opt/homebrew/bin/solc"/>
 
     <property name="defaultAbortOnError" value="true"/>
     <property name="defaultIgnoreExitStatus" value="false"/>

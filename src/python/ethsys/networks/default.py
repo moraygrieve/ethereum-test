@@ -3,7 +3,8 @@ from pysys.constants import *
 from ethsys.utils.properties import Properties
 
 
-class DefaultNetwork:
+class Default:
+    """A default node giving access to an underlying network."""
     HOST = None
     PORT = None
 

@@ -2,14 +2,14 @@ import json, os, time
 from pysys.constants import PROJECT
 from pysys.basetest import BaseTest
 from ethsys.utils.properties import Properties
-from ethsys.networks.obscuro import ObscuroNetwork
+from ethsys.networks.obscuro import Obscuro
 
 
 class PySysTest(BaseTest):
 
     def execute(self):
         # get the game address and the obx token address from the properties
-        l2 = ObscuroNetwork
+        l2 = Obscuro
         game_add = Properties().guessing_game_address(l2.PROPS_KEY)
         obxt_add = Properties().l2_obx_token_address(l2.PROPS_KEY)
 
