@@ -14,5 +14,11 @@ RUN python3 -m pip install pysys==1.6.1
 RUN python3 -m pip install py-solc-x
 
 RUN mkdir /home/obscuro-test
+RUN mkdir /home/go-obscuro
 COPY . /home/obscuro-test
+
+WORKDIR /home/obscuro-test/artifacts
+RUN ln -s wallet_extension_linux_amd64 wallet_extension
+
+WORKDIR /home/obscuro-test
 

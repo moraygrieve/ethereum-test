@@ -15,7 +15,7 @@ The top level structure of the project is as below;
 
 ```
 ├── README.md            # Readme 
-├── .user.properties     # Template properties file detailing connection and keys required for running 
+├── .default.properties  # Default properties file detailing connection and keys required for running 
 ├── pysysproject.xml     # The pysys project file
 ├── admin                # Used for administering Obscuro testnet 
 ├── artifacts            # Artifacts used during test execution (e.g. Obscuro wallet extension)
@@ -33,6 +33,21 @@ The [.user.properties](./.user.properties) template file should be copied and re
 executing the tests e.g. `.fredjones.properties`. As this file will contain private keys of accounts used for testing 
 it should never be committed back into the main repo (the [.gitignore](./.gitignore) should prevent this). See the
 [.user.properties](./.user.properties) for more information on the properties that need to be setup. 
+
+
+Setup
+-----
+The easiest way to set up a host to run the tests is to create a docker container with all dependencies pre-installed. 
+The repository should be cloned into the same parent directory as [go-obscuro](https://github.com/obscuronet/go-obscuro)
+as running the tests will use the wallet_extension built from the working copy of the go-obscuro repository. To build 
+the docker container, in the root of the repository use;
+
+```bash
+/utils/docker/build_image.sh
+```
+
+
+
 
 
 

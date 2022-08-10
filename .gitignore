@@ -9,7 +9,7 @@ __pycache__/
 
 # property files we dont want commited to SCCS
 *.properties
-!.user.properties
+!.default.properties
 
 # ignore any artifacts used
 artifacts/wallet_extension*

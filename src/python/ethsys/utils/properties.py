@@ -10,7 +10,7 @@ class Properties:
         if os.path.exists(file):
             self.config.read(filenames=file)
         else:
-            file = os.path.join(PROJECT.root, '.user.properties')
+            file = os.path.join(PROJECT.root, '.default.properties')
             self.config.read(filenames=file)
 
     # default accounts used generally
